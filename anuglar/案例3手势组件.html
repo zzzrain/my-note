@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app='demo'>
+	<head>
+		<meta charset="UTF-8">
+		<meta content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" name="viewport">
+		<title></title>
+	</head>
+	<body>
+		<touch>触屏测试</touch>
+	</body>
+	<script src="js/angular.js"></script>
+	<script>
+		angular.module('demo',[])
+		.directive('touch',function(){
+			return {
+				link:function(scope,ele,attr){
+					var strX,endX,strY,endY;
+					ele.bind('touchstart',e=>{
+						strX = e.changedTouches[0].pageX;
+						strY = e.changedTouches[0].pageY;
+					});
+					ele.bind('touchend',e=>{
+						endX = e.changedTouches[0].pageX;
+						endY = e.changedTouches[0].pageY;
+						if(Math.abs(strX-endX)>=Math.abs(strY-endY)){
+							if(strX>endX) console.log('left')
+							else console.log('right')
+						}else{
+							if(strY>endY) console.log('top')
+							else console.log('bottom')
+						}
+					});
+				}
+			}
+		})
+	</script>
+</html>

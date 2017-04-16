@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app='demo'>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#tab{display: flex;}
+			#tab>div{flex:1;line-height: 30px;text-align: center;}
+			.active{background: #ff0;}
+			p{text-align: center;}
+		</style>
+	</head>
+	<body>
+		<div ng-controller='index'>
+			<div id="tab">
+				<div ng-click='show(1)' ng-class="{'active':bg1}">第一页</div>
+				<div ng-click='show(2)' ng-class="{'active':bg2}">第二页</div>
+				<div ng-click='show(3)' ng-class="{'active':bg3}">第三页</div>
+			</div>
+			<div ng-switch='page'>
+				<p ng-switch-when='1'>1</p>
+				<p ng-switch-when='2'>2</p>
+				<p ng-switch-when='3'>3</p>
+			</div>
+		</div>
+	</body>
+	<script src='js/angular.js'></script>
+	<script>
+		angular.module('demo',[])
+		.controller('index',function($scope){
+			$scope.page=2;
+			$scope.show = function(page){
+				$scope.page = page;
+				$scope.bg1=false;
+				$scope.bg2=false;
+				$scope.bg3=false;
+				switch(page){
+					case 1:$scope.bg1=true;break;
+					case 2:$scope.bg2=true;break;
+					case 3:$scope.bg3=true;break;
+				}
+			}		
+		})
+	</script>
+</html>

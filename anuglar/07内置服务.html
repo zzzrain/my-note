@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="demo">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<p>{{root}}</p>
+		<div ng-controller="indexCtrl">
+			<input type="text" ng-model='skill'/>
+			<button ng-click='jsonp()'>jsonp</button>
+			<button ng-click='get()'>get</button>
+			<button ng-click='post()'>post</button>
+		</div>
+	</body>
+	<script src="js/angular-1.5.8.js"></script>
+	<script src="js/ngPost.js"></script>
+	<script>
+		var app = angular.module("demo", ['MyModule']);
+		app.controller("indexCtrl", function($scope,$http,$rootScope) {
+			// 全局范围	
+			$rootScope.root = "exchange";
+			
+			$scope.jsonp = function(){
+				$http({
+					url:"php/get.php",
+					method:'JSONP',
+					params:{
+						input:$scope.skill
+					}
+				}).then(function(res){
+					console.log(res)
+				})
+			}
+			
+			$scope.get = function(){
+				$http({
+					url:"php/get.php",
+					method:'GET',
+					params:{
+						input:$scope.skill
+					}
+				}).then(function(res){
+					console.log(res)
+				})
+			}
+			
+			$scope.post = function(){
+				$http.post("php/post.php",{input:$scope.skill}).success(function(res){
+					console.log(res)
+				})
+			}
+			
+			/*$scope.post = function(){
+				$http({
+					url:'php/post.php',
+					mthhod:'POST',
+					params:{
+						input:$scope.skill
+					}
+				}).success(function(res){
+					console.log(res)
+				})
+			}*/
+		})
+	</script>
+</html>

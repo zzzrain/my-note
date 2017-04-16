@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html ng-app='demo'>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<link rel="stylesheet" href="css/swiper.css" />
+	<body>
+		<play></play>
+	</body>
+	<script src="js/angular.js"></script>
+	<script>
+		angular.module('demo',[])
+		.directive('play',function(){
+			return {
+				templateUrl:'html/swiper.html',
+				link:function(scope,ele,attr){
+					
+				}
+			}
+		})
+	</script>
+</html>

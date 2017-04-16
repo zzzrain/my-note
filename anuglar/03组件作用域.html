@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app='demo'>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div ng-controller='ctr1'>
+			<box data = "1"></box>
+			<box data = "2"></box>
+			<span color='#ff0'>测试颜色</span>
+			<button buttons='click("控制器一")'>测试按钮</button>
+		</div>
+		<div ng-controller='ctr2'>
+			<span color='#f0f'>测试颜色</span>
+			<button buttons='click("控制器二")'>测试按钮</button>
+		</div>
+	</body>
+	<script src="js/angular.js"></script>
+	<script>
+		angular.module('demo',[])
+		.controller('ctr1',function($scope){
+			$scope.click = function(res){
+				console.log(res)
+			}
+		})
+		.controller('ctr2',function($scope){
+			$scope.click = function(res){
+				console.log(res)
+			}
+		})
+		.directive('color',function(){
+			return {
+				link: function(scope,ele,attr){
+					//console.log(attr)
+					ele.css('color',attr.color)
+				}
+			}
+		})
+		.directive('buttons',function(){
+			return {
+				link: function(scope,ele,attr){
+					console.log(scope,ele,attr)
+					ele.on('click',function(){
+						scope.$apply(attr.buttons)
+					});
+				}
+			}
+		})
+		.directive('box',function(){
+			return {
+				// {}独立作用域  false 默认相互影响   true
+				scope:{},
+				templateUrl:'html/test.html',
+				link: function(scope,ele,attr){
+					scope.state = attr.data;
+				}
+			}
+		})
+	</script>
+</html>

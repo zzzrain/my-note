@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app='demo'>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div ng-controller='index'>
+			<p ng-bind='title' ng-style='{color:color,textAlign:"center"}'></p>
+			<!--组件标记-->
+			<zujian data='1'></zujian>
+			<zujian data='2'></zujian>
+		</div>		
+	</body>
+	<script src="js/angular.js"></script>
+	<script>
+		angular.module('demo', [])
+		.controller('index', function($scope) {
+			$scope.title = '组件化开发',
+			$scope.color = '#f00'
+		})
+		.directive('zujian', function() {
+			return {
+				// 默认两个属性（可选）
+				replace: false,				
+				restrict: 'ECMA',
+				// element：元素
+				// attribute：属性
+				// class：类		m：注释
+
+				//template:'<h3>自定义组件</h3>',
+				templateUrl: 'html/test.html',
+				link:function(scope,ele,attr){
+					scope.name = '第一个组件',
+					scope.text = '输入框内容',
+					console.log(ele,attr)
+				}
+			}
+		})
+		.directive('orange',function() {
+			return {
+				link:function(scope,ele,attr){
+					// 可以使用内置jq方法
+					ele.css('color','#F0AD4E')
+				}
+			}
+		})
+	</script>
+</html>

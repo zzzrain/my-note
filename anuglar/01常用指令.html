@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html ng-app="demo">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		/*p{color:red}*/
+	</style>
+	<body>
+		<!--view层-->
+		<div ng-controller="header">
+			<style>
+				p{color:{{color}}}
+			</style>
+			<p ng-bind='init'></p>
+			<p>我叫{{name}}，今年{{age}}</p>
+			<p>我只会算：{{num}}+{{num}}={{num*2}}</p>
+			<p>{{'松平'+str}},请开始你的表演</p>
+			<p>1,2,boom！！男人从不数到{{arr[2]}}</p>
+			<p>{{obj.skill}}</p>
+		</div>
+		<div ng-controller="main">
+			<style>
+				img{width: 100px;height:100px;}
+			</style>
+			
+			<button ng-click='change()'>美女会变色</button><br />
+			<img ng-src="{{src1}}" alt="" ng-show='bool'/><br />
+			<img ng-src="{{src2}}" alt="" ng-if='bool'/><br />
+			
+			<input type="text" ng-model='name'/>
+			<button ng-click='text()'>按钮</button>
+			<span>{{who}}</span><br />
+			
+			<input type="range" ng-model='size'/>
+			<ul style='color:{{bool ?"#f00" :"#cc0"}}' ng-style='{fontSize:size+"px"}'>
+				<li ng-repeat='key in arr'>我叫{{key.name}},我爱吃{{key.chi}}</li>
+			</ul>
+			
+			<select ng-model='page'>
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>				
+			</select>
+			<div ng-switch='page'>
+				<p ng-switch-when='1'>第一页</p>
+				<p ng-switch-when='2'>第二页</p>
+				<p ng-switch-when='3'>第三页</p>
+			</div>
+		</div>	
+	</body>
+	<script src="js/angular.js"></script>	
+	<script>
+		console.log(angular)
+		console.log(angular.module("demo",[]))
+		// control层
+		angular.module("demo",[])
+		// module层
+		.controller("header",function($scope){
+			$scope.init = '初始化';
+			$scope.color = '#d00';
+			$scope.name = '老妖';
+			$scope.age = 28;
+			$scope.num = 1;
+			$scope.str = '片栗虎';
+			$scope.arr = [1,2,3];
+			$scope.obj = {skill:'女票女昌'};
+		})
+		.controller("main",function($scope){
+
+			$scope.src1 = 'img/star (9).jpg';
+			$scope.src2 = 'img/star (12).jpg';
+			
+			$scope.who = '默认';
+			$scope.text = function(){
+				$scope.who = $scope.name;
+			}	
+			
+			$scope.bool = true;
+			$scope.change = function(){
+				$scope.bool = !$scope.bool;
+			}
+			
+			$scope.size = 16;
+			$scope.arr = [
+				{name:'银桑',chi:'红豆饭'},
+				{name:'十四',chi:'蛋黄酱'},
+				{name:'神乐',chi:'醋海带'}
+			];	
+			
+			$scope.page = '2';
+		});
+	</script>
+</html>

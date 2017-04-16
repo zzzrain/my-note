@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="demo">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div ng-controller="indexCtrl">
+			
+		</div>
+	</body>
+	<script src="js/angular.js"></script>
+	<script>
+		var app = angular.module("demo", []);
+		app.controller("indexCtrl", function($scope,tool1,tool2) {
+			console.log(tool1.sum(3,7))
+			console.log(tool2.sum(3,7))
+			console.log(tool2.mul(3,7))
+		})
+		app.service("tool1",function(){
+			return {
+				sum:function(a,b){
+					return a+b
+				}
+			}
+		})
+		app.service("tool2",function(tool1){
+			return {
+				sum:tool1.sum,
+				mul:function(a,b){
+					return a*b
+				}
+			}
+		})
+	</script>
+</html>

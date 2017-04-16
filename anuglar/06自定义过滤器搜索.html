@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app='demo'>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div ng-controller='index'>
+			<p><input type="text" ng-model='key'/></p>
+			<p ng-bind-html='text|blight:key|safe'></p>
+		</div>
+	</body>
+	<script src="js/angular.js"></script>
+	<script>
+		angular.module('demo',[])
+		.controller('index',function($scope){
+			console.log($scope)
+			$scope.text = '我是神乐, 今年16, 只爱醋海带,我是月月, 今年26, 只爱大烟枪,我是袁飞, 今年26, 只爱红豆饭,我是银桑, 今年28, 只爱红豆饭,我是十四, 今年28, 只爱蛋黄酱,我是猩猩, 今年37, 只爱蛋黄酱,'
+		})
+		.filter('blight',function(){
+			// 第一个参数默认内容	
+			// 第二个参数输入内容
+			return function(val,res){
+				//console.log(val)
+				//console.log(res)
+				var reg = new RegExp(res,'g');
+				output = val.replace(reg,`<span style='color:red'>${res}</span>`);
+				if(res){
+					return output
+				}else{
+					return val
+				}
+			}
+		})
+		.filter('safe',function($sce){
+			return function(val){
+				return $sce.trustAsHtml(val)
+			}
+		})
+	</script>
+</html>

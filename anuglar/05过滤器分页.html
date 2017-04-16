@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html ng-app='demo'>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div ng-controller='index'>
+			<button ng-click='prev()'>上一页</button>
+			<input type="text" ng-model='num' ng-blur='skin()'/>
+			<button ng-click='next()'>下一页</button>
+			<ul>
+				<li ng-repeat='key in arr|limitTo:2:page'>我叫{{key.name}}</li>
+			</ul>
+		</div>
+	</body>
+	<script src="js/angular.js"></script>
+	<script>
+		angular.module('demo',[])
+		.controller('index',function($scope,$filter){
+			console.log($scope)
+			$scope.arr = [
+				{name:'银桑',age:28,chi:'红豆饭'},
+				{name:'十四',age:28,chi:'蛋黄酱'},
+				{name:'神乐',age:16,chi:'醋海带'},
+				{name:'猩猩',age:37,chi:'蛋黄酱'},
+				{name:'月月',age:26,chi:'大烟枪'},
+				{name:'袁飞',age:26,chi:'红豆饭'},
+			];
+			$scope.page = 0;
+			$scope.prev = function(){
+				$scope.page -= 2;
+				if($scope.page<0)
+				$scope.page = $scope.arr.length-2;
+			}
+			$scope.next = function(){
+				$scope.page += 2;
+				if($scope.page === $scope.arr.length)
+				$scope.page = 0;
+			}
+			$scope.skin = function(){
+				$scope.page = ($scope.num-1)*2;
+			}
+		})
+	</script>
+</html>

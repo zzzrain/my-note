@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app='demo'>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div ng-controller='index'>
+			<p>{{name}}</p>
+			<p>{{rmb|currency:'￥'}}</p>
+			<input type="text" ng-model='val'/>
+			<button ng-click='sort=!sort'>排序</button>
+			<ul style="color:#f0f">
+				<li ng-repeat='yin in arr|filter:val|orderBy:"age":sort'>
+					我是{{yin.name}},
+					今年{{yin.age}},
+					只爱{{yin.chi}},
+				</li>
+			</ul>
+			<p>{{time|date:"yyyy-MM-dd hh:mm:ss"}}</p>
+		</div>
+	</body>
+	<script src="js/angular.js"></script>
+	<script>
+		angular.module('demo',[])
+		.controller('index',function($scope,$interval,$location){
+			$scope.name = 'success';
+			$scope.rmb = 1234567890;
+			$scope.sort = true;
+			/*$scope.click =  function(){
+				$scope.sort = !$scope.sort
+			}*/
+			$scope.arr = [
+				{name:'银桑',age:28,chi:'红豆饭'},
+				{name:'十四',age:28,chi:'蛋黄酱'},
+				{name:'神乐',age:16,chi:'醋海带'},
+				{name:'猩猩',age:37,chi:'蛋黄酱'},
+				{name:'月月',age:26,chi:'大烟枪'},
+				{name:'袁飞',age:26,chi:'红豆饭'},
+			];
+			
+			$scope.time = Date.now();
+			$interval(function(){
+				$scope.time = Date.now();
+			},1000)
+			console.log($location.search().name)
+			//http://127.0.0.1:8020/anuglar/04内置过滤器.html?#!?name=xie
+		})
+	</script>
+</html>
