@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>轮播</title>
+	<style type="text/css">
+		img{width: 400px;height: 200px;}
+		p{position: relative;width: 400px;}
+		#left{position: absolute;top:80px;left: 0px;width: 40px;height: 50px;}
+		#right{position: absolute;top:80px;right: 0px;width: 40px;height: 50px;}
+	</style>
+</head>
+<body>
+	<p>
+		<img src="../img/slider (1).jpg" id="img">
+		<button id="left"> < </button>
+		<button id="right"> > </button>
+	</p>
+	<button id="stop">暂停</button>
+		
+	<script type="text/javascript">		
+		var img = document.getElementById('img')
+		var stop = document.getElementById('stop')
+		var left = document.getElementById('left')
+		var right = document.getElementById('right')
+		var mouse = document.getElementsByTagName('p')[0]
+		
+		setTimeout(function(){
+			var i = 1
+			var idx = 1
+			var timer = setInterval(time,1000)
+			function time(){	
+				i++
+				move()			
+			}
+			function move(){
+				if(i>5) i=1				
+				if(i<1) i=5				
+				img.src ='../img/slider (' + i + ').jpg'
+			}
+			
+			stop.onclick = function(){
+				if(timer){
+					clearInterval(timer)
+					timer = ''
+					stop.innerHTML = '继续'
+				}else{
+					timer = setInterval(time,1000);
+					stop.innerHTML = '暂停'
+				}				
+			}
+
+			left.onclick = function (){
+				i--
+				move()
+			}
+			right.onclick = time
+
+			/*mouse.onmouseout = function(){
+				timer = setInterval(time,1000);
+			}
+			mouse.onmouseover = function(){
+				clearInterval(timer);
+			}*/
+		},2000)		
+	</script>
+</body>
+</html>

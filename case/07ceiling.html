@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>吸顶</title>
+	<style type="text/css">
+		body{height: 5000px;}
+		header{height: 200px;background: pink;}
+		nav{width: 100%;height: 50px;background: #0f0;}
+		footer{width: 100px;line-height: 100px;background: #f00;
+			color: #fff;position: fixed;bottom:0;right:0;
+			text-align: center;display: none;}
+		.fixed{position: fixed;top: 0;left: 0;}
+	</style>
+</head>
+<body>
+	<header></header>
+	<nav></nav>
+	<footer>顶顶顶顶</footer>
+	<script type="text/javascript">
+		var ceil = document.getElementsByTagName('nav')[0];
+		var foot = document.getElementsByTagName('footer')[0];
+		window.onscroll = function(){
+			/*var top = document.body.scrollTop ||
+			document.documentElement.scrollTop;			
+			if(top >= 300){
+				ceil.className = 'fixed';
+			}else{
+				ceil.className = ' ';
+			}*/
+			if(window.scrollY >= 300){
+				ceil.className = 'fixed';
+				foot.style.display = 'block';
+			}else{
+				ceil.className = ' ';
+				foot.style.display = 'none';
+			}
+		}
+		
+		foot.onclick = function(){
+			var top = window.scrollY;			
+			var timer = setInterval(function(){
+				top -= top/50;
+				console.log(parseInt(top))				
+				if(top<5){
+					top = 0;
+					clearInterval(timer);
+				}	
+				window.scrollTo(0,top);			
+			});
+		}
+	</script>
+</body>
+</html>

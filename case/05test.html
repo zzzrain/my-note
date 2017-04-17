@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+	window.onload= function(){
+		var n=1;
+		function fn(){
+			console.log(n);
+			var n=2;
+			console.log(n);
+		}	
+		fn();
+		console.log(n);
+
+		/*!function (){
+			var btn=document.getElementById('btn');
+			btn.onclick = function(){
+				console.log(this); 
+			}  
+			btn.onclick();
+		}();
+		
+		var test = btn.onclick;		 
+		test();*/
+	}	
+	</script>
+</head>
+<body>
+	<button id='btn'>按钮</button>
+</body>
+</html>

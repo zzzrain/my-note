@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <button>#0</button>
+    <button>#1</button>
+    <button>#2</button>
+    <script>
+        for(var i=0;i<btn.length;i++){
+            btn[i].onclick = (function(i){
+                return function(){                        
+                    alert(i);
+                }
+            })(i)
+        }
+        var btn = document.getElementsByTagName('button');
+    </script>
+</body>
+</html>

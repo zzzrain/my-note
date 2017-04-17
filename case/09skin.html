@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>换肤原理</title>
+	<style type="text/css">
+		div{width: 165px;height: 50px;display: none}
+		div:first-of-type{display: block;}
+		.sk1{background: #0ff}
+		.sk2{background: #f0f}
+		.sk3{background: #0f0}
+		.active{background: #ff0}
+	</style>
+</head>
+<body>
+	<button>标签1</button>
+	<button>标签2</button>
+	<button>标签3</button>
+	<div class="sk1"></div>
+	<div class="sk2"></div>
+	<div class="sk3"></div>
+
+	<script type="text/javascript">
+		var btn = document.getElementsByTagName('button');
+		var bgm = document.getElementsByTagName('div');
+
+		for(var i=0;i<btn.length;i++){
+			btn[i].index = i;
+			btn[i].onclick = function(){
+				for(var j=0;j<btn.length;j++){
+					btn[j].className = '';
+					bgm[j].style.display = 'none';
+				}
+				//console.log(i)				
+				btn[this.index].className = 'active';
+				bgm[this.index].style.display = 'block';			
+			}
+			//console.log(i)
+		}
+		
+	</script>
+</body>
+</html>

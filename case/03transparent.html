@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		div{width: 200px;height: 50px;background: #ffa;padding: 5px;
+			margin: 20px;border: 1px solid #f00;}
+		div::before{
+			content: '';
+			position: absolute;left: 40px;top: 1px;
+			border: 10px solid #f00;
+			border-color: transparent transparent #f00 transparent;
+		}
+		div::after{
+			content: '';
+			position: absolute;left: 40px;top: 2px;
+			border: 10px solid #f00;
+			border-color: transparent transparent #ffa transparent;
+			/*border-bottom-color:#ffd;*/
+		}
+	</style>
+</head>
+<body>
+	<div>零零七渣渣詹姆斯邦德</div>
+</body>
+</html>

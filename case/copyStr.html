@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script>
+        String.prototype.copy = function(len){
+            var str = '';
+            for(var i=0;i<len;i++){
+                str += this;
+            }
+            return str;
+        }
+        console.log('五黄六步上树摘香蕉'.copy(6))
+    </script>
+</body>
+</html>

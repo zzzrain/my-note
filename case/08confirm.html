@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>确认框</title>
+</head>
+<body>
+	<button id="btn">刷新</button>
+	<script type="text/javascript">
+		var btn = document.getElementById('btn');
+		
+		btn.onclick = function(){
+			var con = confirm('我让你按');
+			if(con){
+				alert('你按了确定')
+			}else{
+				alert('你按了取消')
+			}
+
+			var pro = prompt('口令红包','我是傻逼');
+			if(pro){
+				alert(pro)
+			}
+			document.body.innerHTML = pro;
+		}
+	</script>
+</body>
+</html>
