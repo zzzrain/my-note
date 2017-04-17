@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>全选反选</title>
+	<style>
+		ul{list-style:none;width: 200px;margin: 0;padding: 0;}
+		li{padding: 5px}
+		.active{background: pink;}
+	</style>
+</head>
+<body>
+	<input type="checkbox" name="check">全选
+	<input type="checkbox" name="invent">反选
+	<ul>
+		<li><input type="checkbox">HiFi</li>
+		<li><input type="checkbox">山地车</li>
+		<li><input type="checkbox">单反相机</li>
+		<li><input type="checkbox">固态硬盘</li>
+		<li><input type="checkbox">机械键盘</li>
+		<li><input type="checkbox">动漫手办</li>
+		<li><input type="checkbox">卡巴基佬</li>
+		<li><input type="checkbox">图吧图丁</li>
+		<li><input type="checkbox">网易云音乐</li>
+	</ul>
+	
+	<script>	
+	    /*1、获取元素，注意只有checkbox才有checked的属性
+		2、全选、反选都是在事件触发后遍历元素再做判断
+		3、单选需要遍历元素后触发事件再做判断
+		4、全选自动勾上的关键————计数器做判断
+		5、高亮的i可以通过元素的i来转化*/
+
+		var check = document.getElementsByName('check')[0];
+		var invent = check.nextElementSibling;
+		var ul = invent.nextElementSibling;
+		var hobby = ul.getElementsByTagName('input');
+		var li = ul.children;
+		//var hobby = li.children;
+		console.log(hobby)
+		
+		// 全选
+		check.onclick = function(){
+			for(var i=0;i<hobby.length;i++){
+				if(check.checked){
+					hobby[i].checked = 1;
+					li[i].className = 'active';
+				}else{					
+					hobby[i].checked = 0;
+					li[i].className = '';
+				}
+			}							
+		}
+		
+		// 反选
+		invent.onclick = function(){
+			for(var i=0;i<hobby.length;i++){
+				if(hobby[i].checked){
+					hobby[i].checked = 0;
+					li[i].className = '';
+				}else{
+					hobby[i].checked = 1;
+					li[i].className = 'active';
+				}
+			}
+		}
+
+		// 单选
+		for(var i=0;i<hobby.length;i++){
+			hobby[i].idx = i;
+			hobby[i].onclick = function(){
+				check.checked = 0;
+				// 判断全选
+				var idx = 0;
+				for(var j=0;j<hobby.length;j++){
+					if(hobby[j].checked){
+						idx++;
+					}
+				}
+				if(idx === hobby.length){
+					check.checked = 1;
+				}	
+				// 判断高亮
+				if(li[this.idx].className){
+					li[this.idx].className = '';
+				}else{
+					li[this.idx].className = 'active';
+				}		
+			}			
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>返回顶部</title>
+	<style>
+		body{height: 5000px;}
+		div{width: 80px;height: 80px;background: #f00;
+			position: fixed;right: 0;bottom: 0}
+	</style>
+	<script>
+		document.addEventListener('DOMContentLoaded',()=>{
+			let box = document.querySelector('div');
+			window.onscroll = ()=>{
+				let top = window.scrollY;
+				//console.log(top)
+			}
+			box.onclick = ()=>{
+				let top = window.scrollY;	
+				// 给定一个每次减少的速度			
+				let timer = setInterval(()=>{
+					let v = top/10;
+					top -= v ;
+					if(top<5){
+						top = 0;
+						clearInterval(timer);
+					}
+					window.scrollTo(0,top)
+				},30);
+			}
+		});
+	</script>
+</head>
+	<div>返回顶部</div>
+<body>
+</body>
+</html>

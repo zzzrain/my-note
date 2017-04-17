@@ -1,0 +1,56 @@
+﻿1、输出语句：echo/print
+
+2、声明变量 $
+   声明常量 define()
+   全局变量 global、$GLOBALS['']
+   保存变量 static
+
+3、字符串连接   .
+   字符串长度   strlen()
+   数组声明     array()
+   关联数组冒号 =>
+
+4、构造函数：class Object{}
+   创建原型：function__construct(){}
+     
+   属性、方法前面可加：
+   公有：public
+   私有：private
+   静态：static
+   
+   访问静态：Object::xxx
+
+   声明方法：$this->xxx = $xxx
+
+   析构函数：function__destruct(){}
+
+   继承对象：class Newobj extends Object{}   
+
+5、文件处理
+fopen()： 打开文件
+fread()： 读取内容
+fwrite()：写入内容
+fclose()：关闭文件
+filesize()：内容长度
+
+文件模式：r(只读)、w(开头写入)、a(末尾写入)
+
+
+6、常用方法
+json_decode：转为数组/对象
+json_encode：转字符串
+isset()?: ： 三元运算，检测变量是否设置      
+in_array：   检测数组内容是否存在
+
+7、
+session_start()  ：启动新会话
+session_history()：清空回话的全部数据
+
+$_SESSION['xxx'] = $xxx; 
+
+
+8、新方法
+file_get_contents(url)
+file_put_contents(url,newData)
+
+str_replace()

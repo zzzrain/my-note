@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>注册页面</title>
+	<script>
+		document.addEventListener('DOMContentLoaded',()=>{
+			let user = document.querySelector('input');
+			let text = document.querySelector('#text');
+			user.onblur = ()=>{
+				let val = user.value;
+
+				// 创建、请求、发送、返回
+				let xhr = new XMLHttpRequest();
+				xhr.open('get','http://localhost/note/register.php?user='+val,true);
+				xhr.send();
+				
+				// 返回数据的处理
+				xhr.onreadystatechange = ()=>{
+					if(xhr.readyState === 4 && xhr.status === 200){
+						// 判断后台返回的数据
+						let res = xhr.responseText;
+						if(res){
+							text.innerHTML = '用户已被注册';
+						}else{
+							text.innerHTML = '注册成功';
+						}
+					}
+				}
+			}
+		});
+	</script>
+</head>
+<body>
+	<div><label for="">用户：</label><input type="text"></div>	
+	<div id="text"></div>
+</body>
+</html>

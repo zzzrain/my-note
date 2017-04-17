@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>时钟</title>
+	<style>
+		div{width: 400px;height: 400px;border:5px solid #ddd;border-radius: 50%;
+			position: absolute;top:50%;left: 50%;margin: -200px 0 0 -200px;}
+		span{width: 10px;height: 10px;background: #ff0;position: absolute;top:0;left:0;}
+	</style>
+</head>
+<body>
+	<div id="clock">
+		
+	</div>
+	<p id="timer"></p>
+	<script>		
+		var clock = document.getElementById('clock');
+		var timer = document.getElementById('timer');
+		var res = '';
+		for(var i=0;i<60;i++){	
+			// 弧长公式	π/180 = deg/rad;	
+			var rad = 6*i*Math.PI/180;
+
+			var x = parseInt(200*Math.sin(rad))+200;
+			var y = parseInt(200*Math.cos(rad))+200;
+			
+			res += '<span style="left:'+ (x-5) + 'px;top:' + (y-5) + 'px">' + '</span>';
+
+		}
+		clock.innerHTML = res;
+
+		setInterval(time,1000);
+		function time(){
+			var now = new Date();
+			timer.innerHTML =
+			now.toDateString() +' '+ 
+			now.toTimeString() + '<br/>' +			
+			now.toLocaleDateString() +'&nbsp&nbsp'+
+			now.toLocaleTimeString();		
+		}
+		time();
+	</script>
+</body>
+</html>

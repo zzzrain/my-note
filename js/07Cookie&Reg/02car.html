@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>购物车</title>
+	<style>
+		#carList li{position:relative;padding-bottom:15px;margin-bottom:15px;border-bottom:1px solid #ddd;}
+		#carList img{display:block;width:100px;}
+		#carList li .btn-close{position:absolute;top:0;right:0;padding:0 5px;cursor:default;}
+		#carList li .btn-close:hover{background-color:#f00;color:#fff;}
+		#carList .price{color:#f00;}
+		.price::before{
+			content:'￥';
+			font-size:11px;
+		}
+		#carList .price span{font-size:11px;}
+		#subPrice{padding:5px 20px;color:#f00;font-weight:bold;text-align:right;}
+	</style>
+	<script>
+	window.onload = function(){
+		// 提取商品信息
+		var arr = [];
+		var cookie = document.cookie.split('; ');
+		cookie.forEach(function(item){
+			item = item.split('=');
+			if(item[0] === 'goods'){
+				arr = JSON.parse(item[1]);
+				console.log(arr)
+			}
+		});
+
+		// 根据信息生成结构
+		var carList = document.getElementById('carList');
+		var btnClear = document.getElementById('btnClear');
+		var subPrice = carList.nextElementSibling;
+
+		function load(){
+			var ul = document.createElement('ul');
+			var sum = 0;
+			arr.forEach(function(goods){
+				var li = document.createElement('li');
+				li.setAttribute('data-guid',goods.guid);
+
+				var img = document.createElement('img');
+				img.src = goods.src;
+
+				var h4 = document.createElement('h4');
+				h4.innerHTML = goods.name;
+
+				var price = document.createElement('p');
+				price.className = 'price';
+				price.innerText = goods.price +'×'+ goods.qty;
+
+				var btnDel = document.createElement('span');
+				btnDel.className = 'btn-close';
+				btnDel.innerHTML = '&times;';
+
+				sum += goods.price*goods.qty;
+				
+				li.appendChild(img);
+				li.appendChild(h4);
+				li.appendChild(price);
+				li.appendChild(btnDel);
+				ul.appendChild(li);
+			});
+			carList.innerHTML = '';
+			carList.appendChild(ul);
+			subPrice.innerHTML = '￥' + sum.toFixed(2);
+		}
+		load();		
+
+		// 删除商品
+		carList.onclick = function(e){
+			e = e || window.event;
+			var target = e.target || e.srcElement;
+
+			// 通过自定义属性来识别商品 
+			if(target.className === 'btn-close'){
+				target = target.parentElement;
+				var guid = target.getAttribute('data-guid');
+
+				// 更新cookie
+				for(var i=0;i<arr.length;i++){
+					if(arr[i].guid === guid){
+						arr.splice(i,1);
+						break;
+					}
+				}
+				var now = new Date();
+				now.setDate(now.getDate()+3);
+				document.cookie = 'goods=' + JSON.stringify(arr) + ';expires=' + now;
+				
+				// 更新结构
+				//target.parentElement.removeChild(target);
+				load();
+			}
+		}
+
+		// 清空购物车
+		btnClear.onclick = function(){
+			carList.innerHTML = '';
+			subPrice.innerHTML = '';
+			// 更改日期清空cookie
+			var now = new Date();
+			now.setDate(now.getDate()-1);
+			document.cookie = 'goods=xxx;expires=' + now;
+		}
+	}		
+	</script>
+</head>
+<body>
+	<h1>购物车</h1>
+	<div id="carList">
+		
+	</div>
+	<div id="subPrice"></div>
+	<a href="#" id="btnClear">清空购物车</a>
+</body>
+</html>

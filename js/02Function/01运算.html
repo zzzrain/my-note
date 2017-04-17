@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>运算</title>
+</head>
+<body>
+	<input type="text" name="" id="put">
+	<select>
+		<option>+</option>
+		<option>-</option>
+		<option>×</option>
+		<option>/</option>
+	</select>
+	<input type="text" name="">
+	<button id="btn">计算</button>
+	<input type="text" name="">
+
+	<script type="text/javascript">
+		var btn = document.getElementById('btn');		
+		btn.onclick = function(){
+			var x = document.getElementsByTagName('input')[0].value*1;
+			var y = document.getElementsByTagName('input')[1].value*1;
+			var z = document.getElementsByTagName('input')[2];
+			var n = document.getElementsByTagName('select')[0].value;
+			
+			switch(n){
+				case '+':
+					res = x + y;
+					break;
+				case '-':
+					res = x - y;
+					break;
+				case '×':
+					res = x * y;
+					break;
+				case '/':
+					res = x / y;
+					break;	
+			}
+			console.log(res)
+			if(isNaN(res)){
+				z.value = '纳尼';
+			}else{
+				z.value = res;
+			}			
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>事件捕获</title>
+	<style>
+		#box{height: 50px;border: 1px solid #ddd;}
+	</style>
+</head>
+<body>
+	<div id="box">事件捕获</div>
+	<script>
+		var box = document.getElementById('box');
+		window.addEventListener('click',function(e){
+			console.log('window')			
+		});
+		document.addEventListener('click',function(e){
+			console.log('document')
+			//e.stopPropagation();
+		},true);
+		document.body.addEventListener('click',function(e){
+			console.log('body')					
+		},true);
+		box.addEventListener('click',function(e){
+			console.log('div')
+		});		
+	</script>
+</body>
+</html>

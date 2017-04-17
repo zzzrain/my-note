@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>作业</title>
+	<style type="text/css">
+		table{border-collapse: collapse;}		
+		td,th{width: 60px;height: 30px;border: 1px solid #666;text-align: center;}
+	</style>
+</head>
+<body>
+	<input type="text" name="" id="put" size="30">
+	<button id="btn">最新消息</button>
+	<ul id="newslist"></ul>
+	<table>
+		<thead>
+			<th>学号</th>
+			<th>语文</th>
+			<th>数学</th>
+			<th>英语</th>
+			<th>总成绩</th>
+		</thead>
+		<tbody id="list"></tbody>
+	</table>
+
+	<script type="text/javascript">
+		// 新闻列表
+		var news = [
+			{val:'北京原副书记吕锡文被控受贿1878万 获刑13年'},
+			{val:'马云办学:是值得称颂还是躲在教育背后的物欲横流?'},
+			{val:'港媒:曾荫权罪名成立周三判刑 即时还押不准保释'},
+			{val:'95后快递员捡百万巨款还失主：不是我的一分不拿'},
+			{val:'林妙可继落榜北电后 又无缘中央音乐学院'}
+		]
+		var put = document.getElementById('put');
+		var btn = document.getElementById('btn');
+		var newslist = document.getElementById('newslist');
+
+		function read(){
+			var msg = '';
+			for(var i=0;i<news.length;i++){
+				if(i === 5){
+					break ;
+				}else{
+					msg += '<li><a href="baidu.com">' + news[i].val + '</a></li>';
+				}							
+			}
+			newslist.innerHTML = msg;
+		}
+		read();
+
+		btn.onclick = function(){
+			var hot = {val:put.value};
+			news.unshift(hot);			
+			put.value = '';	
+			read();		
+		}
+
+
+		// 成绩列表	
+		var score = [
+			{
+				num:1,
+				chinese:105,
+				math:62,
+				english:118
+			},
+			{
+				num:2,
+				chinese:89,
+				math:78,
+				english:120
+			},
+			{
+				num:3,
+				chinese:86,
+				math:64,
+				english:80
+			},
+			{
+				num:4,
+				chinese:78,
+				math:99,
+				english:91
+			},
+			{
+				num:5,
+				chinese:107.5,
+				math:97,
+				english:70
+			},
+			{
+				num:6,
+				chinese:112,
+				math:61,
+				english:92
+			},
+			{
+				num:7,
+				chinese:101,
+				math:79,
+				english:104
+			},
+			{
+				num:8,
+				chinese:71,
+				math:72,
+				english:105
+			},
+			{
+				num:9,
+				chinese:56,
+				math:68,
+				english:61
+			},
+			{
+				num:10,
+				chinese:98,
+				math:83,
+				english:77
+			}
+		]
+		var list = document.getElementById('list');
+		var str = '';	
+		var yu = score[0].chinese;	  var yu_ = 1;
+		var shu = score[0].math;	  var shu_ = 1;
+		var ying = score[0].english;  var ying_ = 1;
+		var zong = score[0].sum; 	  var zong_ = 1;
+		
+		for(var i=0; i<score.length; i++){
+			// 算出总成绩
+			score[i].sum = score[i].chinese + score[i].math + score[i].english;
+			//console.log(score[0].sum)
+
+			str += '<tr><td>' + score[i].num + '</td><td>' + score[i].chinese + 
+			'</td><td>' + score[i].math + '</td><td>' + score[i].english + 
+			'</td><td>' + score[i].sum + '</td></tr>' ;
+
+			// 判断最高分的学号
+			if(score[i].chinese>yu){
+				yu = score[i].chinese;
+				yu_ = score[i].num;
+			}
+			if(score[i].math>shu){
+				shu = score[i].math;
+				shu_ = score[i].num;
+			}
+			if(score[i].english>ying){
+				ying = score[i].english;
+				ying_ = score[i].num;
+			}
+			if(score[i].sum>zong){
+				zong = score[i].sum;
+				zong_ = score[i].num;
+			}
+		}
+		str += '<tr><td>' + '最高分' + '</td><td>' + yu_ + 
+			'</td><td>' + shu_ + '</td><td>' + ying_ + 
+			'</td><td>' + zong_ + '</td></tr>' ;
+		list.innerHTML = str;
+
+	</script>
+</body>
+</html>

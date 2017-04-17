@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>生成表格</title>
+	<style>
+		div{margin: 20px;}
+		table{width: 100%;}
+		td{height: 50px;text-align: center;color: #fff;}
+		table button{line-height: 50px;color: #fff;}
+	</style>
+	<script src="../common.js"></script>
+	<script>
+	window.onload = function(){
+		var val = document.getElementsByTagName('input');
+		var add = document.getElementsByTagName('button');
+		add[0].onclick = function(){
+			var row = val[0].value;
+			var col = val[1].value;
+			//创建表格 
+			var table = document.createElement('table');
+			document.body.appendChild(table);
+			// 生成行
+			for(var i=0;i<row;i++){
+				var tr = document.createElement('tr');
+				// 生成列
+				for(var j=0;j<col;j++){
+					if(j === col-1){
+						var del = document.createElement('button');
+						del.innerHTML = '删除按钮';
+						del.style.background = color();
+						tr.appendChild(del);
+					}else{
+						var td = document.createElement('td');
+						td.innerHTML = (i+1) + '行' + (j+1) + '列';
+						td.style.background = color();
+						tr.appendChild(td);
+					}
+				}
+				table.appendChild(tr);
+			}
+		}
+	}				
+	</script>
+</head>
+<body>
+	<div>
+		<input type="text" name="">
+		<input type="text" name="">
+		<button>生成表格</button>
+	</div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>抛物运动</title>
+	<style>
+		#ball{width: 50px;height: 50px;background: #0f0;border-radius: 50%;position: absolute;}
+	</style>
+	<script>
+		document.addEventListener('DOMContentLoaded',()=>{
+			let ball = document.querySelector('#ball');
+			ball.onclick = ()=>{
+				let x = 20;
+				let y = 0;
+				ball.timer = setInterval(()=>{
+					y++;
+					if(ball.offsetTop >= window.innerHeight-ball.offsetHeight){
+						clearInterval(ball.timer);
+						ball.style.top = window.innerHeight-ball.offsetHeight+'px';
+					}else{
+						ball.style.left = ball.offsetLeft + x + 'px';
+						ball.style.top  = ball.offsetTop + y + 'px';
+					}					
+				},30)			
+			}
+		});
+	</script>
+</head>
+<body>
+	<div id="ball"></div>
+</body>
+</html>

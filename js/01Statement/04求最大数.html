@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>求最大数</title>
+</head>
+<body>
+	<input type="text" name="" id="val1">
+	<input type="text" name="" id="val2">
+	<button id="btn">判断</button>
+	<p id="out"></p>
+	<script type="text/javascript">
+		var val1 = document.getElementById('val1');
+		var val2 = document.getElementById('val2');
+		var btn = document.getElementById('btn');
+		var out = document.getElementById('out');
+		btn.onclick = function(){
+			var res1 = val1.value * 1;
+			var res2 = val2.value * 1;
+			var res = res1>res2 ?res1 :res2;
+			out.innerHTML = '最大值为' + res;
+			
+			val1.value = '';
+			val2.value = '';
+			val1.focus();
+		}
+	</script>	
+</body>
+</html>

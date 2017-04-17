@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>表单验证</title>
+	<style>
+		form{width: 300px;margin: 30px auto;background: #ddd;text-align: center;position: relative;}
+		form label{display: inline-block;width: 80px;text-align: right;}
+		form div{padding: 10px;}
+		#box{width: 168px;height: 26px;border: 1px solid #f00;text-align: left;
+			position: absolute;top: 40px;right: -200px;padding: 3px;}
+		#box span{display: inline-block;width: 50px;height: 20px;background: #f00;
+			border:3px solid #fff;}
+		#word{width: 168px;height: 26px;position: absolute;top: 0px;right: -200px;}
+		#word span{display: inline-block;width: 50px;height: 20px;}		
+		.active{color: #f00;}
+	</style>
+</head>
+<body>
+	<form action="http://www.baidu.com">
+		<div><label for="username">用户：</label><input type="text"></div>
+		<div><label for="password">密码：</label><input type="text"></div>
+		<div><label for="name">昵称：</label><input type="text"></div>
+		<div><label for="email">电子邮箱：</label><input type="text"></div>
+		<div><button>登录</button></div>
+		<div id="word">
+			<span>弱</span>
+			<span>中</span>
+			<span>强</span>
+		</div>
+		<div id="box"></div>
+	</form>
+	
+	<script>
+		var form = document.forms[0];
+		var user = form.children[0].children[1];
+		var pass = form.children[1].children[1];
+		var nike = form.children[2].children[1];
+		var email = form.children[3].children[1];
+		var btn = form.children[4].children[0];
+		var word = form.children[5];
+		var sign = form.children[6];
+		var len = word.children.length;
+
+		document.onkeyup = function(e){
+			var res = pass.value;
+			var idx = 1;
+			// 判断强度
+			if(res.length >= 6){
+				if(res.match(/\d/g) || res.match(/[a-z]/g)){
+					console.log('弱')
+					idx = 1;	
+				}
+				if(res.match(/\d/g) && res.match(/[a-z]/g)){
+					console.log('中')
+					idx = 2;
+				}
+				if(res.replace(/\d/g,'').replace(/[a-z]/g,'') != ''){
+					console.log('强')
+					idx = 3;
+				}
+			}
+			// 文字显示
+			for(var i=0;i<len;i++){
+				word.children[i].className = '';
+				word.children[idx-1].className = 'active';
+			}
+			// 标记显示
+			sign.innerHTML = '';			
+			for(var i=0;i<idx;i++){
+				var span = document.createElement('span');
+				sign.appendChild(span);										
+			}
+		}
+
+		btn.onclick = function(){
+
+			// 数字、字母
+			if(!/^[\da-z]{2,}$/.test(user.value)){
+				alert('名字不合法');
+				return false;
+			}
+			// 密码
+			if(!/^[\W\w]{6,}$/.test(pass.value)){
+				alert('密码不合法');
+				return false;
+			}
+
+			// 昵称
+			if(!/^[a-z\u2E80-\u9FFF]{2,}/.test(nike.value)){
+				alert('昵称不合法');
+				return false;
+			}
+
+			// xxx@xxx.com.cn
+			if(!/^[\w\-]+@[\da-z\-]+(\.[a-z]{2,3}){1,2}$/.test(email.value)){
+				alert('邮箱不合法');
+				return false;
+			}
+		}		
+	</script>
+</body>
+</html>

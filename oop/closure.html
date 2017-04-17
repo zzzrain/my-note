@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>closure</title>
+	<script>
+		function Object(){
+			
+		}
+		Object.prototype.init = function(){}
+		var obj = new Object();
+		console.log(obj)
+
+		document.addEventListener('DOMContentLoaded',()=>{
+			var btn =document.querySelectorAll('button');
+			for(var i=0;i<btn.length;i++){
+				function click(idx){
+					return function (){
+						console.log(idx)
+					}
+				}
+				btn[i].onclick = click(i);
+			}
+		});				
+	</script>
+</head>
+<body>
+	<button>按钮1</button>
+	<button>按钮2</button>
+	<button>按钮3</button>
+	<button>按钮4</button>
+	<button>按钮5</button>
+</body>
+</html>

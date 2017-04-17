@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>解构</title>
+	<script>
+		// 声明变量
+		let [a,b] = [1,9];
+		// 交换变量
+		[a,b] = [b,a]
+		console.log(a,b)
+
+		// 创建对象
+		function Obj(opt){
+			this.name = opt.name;
+			this.gender = opt.gender;
+			this.age = opt.age;
+		}
+		let obj1 = new Obj({name:'nick',gender:'female',age:20})
+		let obj2 = new Obj({name:'jackson',gender:'male',age:18})
+		console.log(obj1,obj2)
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

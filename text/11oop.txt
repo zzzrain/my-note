@@ -1,0 +1,42 @@
+﻿1、创建方式
+
+2、构造函数四个步骤
+
+创建一个新对象,隐式调用new Obj()
+通过this把作用域赋予新对象
+通过this给新对象绑定属性
+通过return隐式返回一个新对象
+
+3、通过实例获取原型
+xxx.__proto__：浏览器私有属性
+Object.getPrototypeOf(xxx)
+
+判断原型是否实例：
+Object.isPrototypeOf(xxx)
+
+
+4、判断关系（返回布尔值）
+
+constructor <==> prototype
+instance     ==> prototype
+
+判断原型、实例的构造函数：xxx.constructor == Xxx
+判断实例的构造函数：     xxx.instanceof Xxx
+判断对象的属性和方法：   hasOwnProperty、in
+
+
+5、继承方法
+
+借用构造函数：fn.call()、fn.apply()
+原型链继承：  Xxx.prototype = new Obj()
+原型式继承：  Xxx.prototype = Object.create(Obj.prototype)
+
+类继承：class Xxx extends Obj{}
+
+6、创建不能被遍历的对象属性
+单个：Object.defineProperty(obj,'xxx',{})
+多个：Object.defineProperties(obj,'xxx',{})
+configurable、enumerable、writable、value
+
+
+

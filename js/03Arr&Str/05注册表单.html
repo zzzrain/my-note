@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>注册表单</title>
+	<style>
+		label{display: inline-block;width: 100px;text-align: right;}
+	</style>
+</head>
+<body>
+	<form action="success.html">
+		<p><label>用户：</label><input type="text" placeholder="我的地盘没有提示"></p>
+		<p><label>密码：</label><input type="text" placeholder="我的地盘没有提示"></p>
+		<p><label>确认密码：</label><input type="text" placeholder="我的地盘没有提示"></p>
+		<p><label>昵称：</label><input type="text" placeholder="我的地盘没有提示"></p>
+		<p><label></label><input type="submit" value="确认提交"></p>
+	</form>
+	
+	<script>
+		var put = document.getElementsByTagName('input');
+		
+		put[4].onclick = function (){
+			var user =  put[0].value;
+			var pass =  put[1].value;
+			var conf =  put[2].value;
+			var name =  put[3].value;
+
+			var str = '123567890qwertyuiopasdfghjklzxcvbnm_';
+			var sen = '你妈炸了的鸡翅不好吃';
+			//判断空格
+			for(var i=0;i<put.length;i++){
+				console.log(put[i].value.trim())
+				if(put[i].value.trim() == ''){
+					alert('四大皆空');
+					return false;
+				}
+			}
+			// 判断所含字符
+			for(var i=0;i<user.length;i++){
+				console.log(user.indexOf(str[i]))
+				if(str.indexOf(user[i]) == -1){
+					alert('不要用你爹的名字')					
+					return false;
+				}
+			}
+			// 判断长度、开头
+			if(user.length<6 || user.length>20 || !isNaN(user[0])){
+				alert('名字有毒')
+				return false;
+			}
+			// 判断密码
+			if(pass != conf){
+				alert('你是猪吗')
+				return false;
+			}
+			// 判断昵称
+			for(var i=0;i<name.length;i++){
+				if(sen.indexOf(name[i]) >= 0){
+					alert('名字太丑')
+					return false;
+				}
+			}			
+		}				
+	</script>
+</body>
+</html>

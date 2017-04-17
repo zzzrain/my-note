@@ -1,0 +1,44 @@
+﻿1、节点类型：
+
+例：<div id="box">我是你爹</div>
+
+类型：	   元素	  属性   文本
+nodeType： 1	  2	     3
+nodeName： div    id     #box
+nodeValue：null   box    我是你爹
+
+2、四个节点获取的方法
+Id、ClassName、TagName、Name
+
+3、通过关系获取的方法
+儿子节点：childNodes(所有)、firstChild、lastChild
+兄弟节点：nextSibling、previousSibling
+
+过滤方法：中间加上Element，firstElementChild
+不用过滤：parentElement/parentNode、children[i]
+
+属性节点：ele.attributes
+文本节点：ele.childNodes
+
+4、节点操作方法（增、删、改）
+创建：
+document.creatElement(node)
+document.creatTextNode('字符串')
+插入：
+parent.appendChild(ele)
+parent.insertBefore(new,node)
+
+复制：ele.cloneNode(boolean)
+替换：parent.replaceChilld(new,old)
+
+删除：parent.removeChild(ele)
+判断：parent.hasChildNotes()
+
+5、设置自定义属性
+ele.setAttribute('data-xxx',value)
+ele.getAttribute('data-xxx')
+ele.hasAttribute('data-xxx')
+ele.removeAttribute('data-xxx')
+
+6、获取元素样式：
+getComputedStyle(ele)['style']

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>表单验证</title>
+	<style>
+		form{width: 300px;margin: 30px auto;background: #ddd;text-align: center;}
+		label{display: inline-block;width: 80px;text-align: right;}
+		div{padding: 10px;}
+	</style>
+</head>
+<body>
+	<form action="http://www.baidu.com">
+		<div><label for="username">用户：</label><input type="text"></div>
+		<div><label for="password">密码：</label><input type="text"></div>
+		<div><label for="name">昵称：</label><input type="text"></div>
+		<div><label for="email">电子邮箱：</label><input type="text"></div>
+		<div><label for="phone">手机号码：</label><input type="text"></div>
+		<div><label for="id">身份证号：</label><input type="text"></div>
+		<div><label for="day">生日：</label><input type="text"></div>
+		<div><button>登录</button></div>
+	</form>
+
+	<script>
+		var form = document.forms[0];
+		var user = form.children[0].children[1];
+		var pass = form.children[1].children[1];
+		var nike = form.children[2].children[1];
+		var email = form.children[3].children[1];
+		var phone = form.children[4].children[1];
+		var ident = form.children[5].children[1];
+		var day = form.children[6].children[1];
+		var btn = form.children[7].children[0];
+
+		btn.onclick = function(){
+					
+			// 用户6-12 数字、字母、下划线、-
+			if(!/^[\w\-]{6,20}$/.test(user.value)){
+				alert('名字不合法');
+				return false;
+			}
+			// 密码6-12 数字、字母组合
+			if(!/^[\da-z]{6,12}$/.test(pass.value)){
+				alert('密码不合法');
+				return false;
+			}
+
+			// 昵称2-12 中文
+			if(!/^[\u2E80-\u9FFF]{2,6}/.test(nike.value)){
+				alert('昵称不合法');
+				return false;
+			}
+
+			// xxx@xxx.com.cn
+			if(!/^[\w\-]+@[\da-z\-]+(\.[a-z]{2,3}){1,2}$/.test(email.value)){
+				alert('邮箱不合法');
+				return false;
+			}
+
+			// 13、14、15、17、18
+			if(!/^1[34578]\d{9}$/.test(phone.value)){
+				alert('手机不合法');
+				return false;
+			}
+
+			// 十八位 最后可能X
+			if(!/^\d{17}[\dx]$/.test(ident.value)){
+				alert('身份不合法');
+				return false;
+			}
+
+			// 20170302、2017-03-02、2017.3.2
+			if(!/^\d{4}([\-\.]*)\d{1,2}\1\d{1,2}$/.test(day.value)){
+				alert('日期不合法');
+				return false;
+			}
+		}
+		
+	</script>
+</body>
+</html>

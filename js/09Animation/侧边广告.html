@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>侧边广告</title>
+	<style>
+		body{margin: 0;}
+		#box p{width: 160px;line-height: 50px;background: orange;margin: 0;text-align: center;}
+		#box{position: fixed;top: 0;left: -160px;}
+		#side{width: 30px;height: 90px;background: #ccc;
+			position: absolute;top: 105px;right: -30px}
+	</style>
+	<script>
+		document.addEventListener('DOMContentLoaded',()=>{			
+			let box = document.querySelector('#box');
+			box.style.top = (window.innerHeight-box.offsetHeight)/2 + 'px';				
+			let speed = 10;
+			let left = box.offsetLeft;
+			box.onmouseenter = ()=>{
+				clearInterval(box.timer);
+				box.timer = setInterval(()=>{
+					left++;
+					if(left >= 0){
+						clearInterval(box.timer);
+					}else{
+						box.style.left = left + 'px';
+					}
+					
+				},5)				
+			}
+
+			box.onmouseleave = ()=>{
+				clearInterval(box.timer);
+				box.timer = setInterval(()=>{
+					left--;
+					if(-left >= box.offsetWidth){
+						clearInterval(box.timer);
+					}else{
+						box.style.left = left + 'px';
+					}					
+				},5)				
+			}
+		});
+	</script>
+</head>
+<body>
+	<div id="box">
+		<div id="side"></div>
+		<p>我是广告我是广告</p>
+		<p>我是广告我是广告</p>
+		<p>我是广告我是广告</p>
+		<p>我是广告我是广告</p>
+		<p>我是广告我是广告</p>
+		<p>我是广告我是广告</p>
+	</div>	
+</body>
+</html>

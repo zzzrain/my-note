@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>满意度</title>
+	<style>
+		.tab{width: 300px;margin: 20px auto;}
+		.dot{width: 5px;height: 32px;background: #f0f;border-radius: 5px;
+			position: absolute;}
+		.box{width: 300px;height: 30px;border: 1px solid #ccc;}
+		.box div:first-child{width: 0px;height: 30px;background: #0f0;}
+	</style>
+</head>
+<body>
+	<div class="tab">
+		<div class="int">
+			<span>你的生活幸福指数</span> 
+			<span>0%</span>
+		</div>
+		<div class="dot"></div>
+		<div class="box">
+			<div></div>
+		</div>	
+	</div>
+	<div class="tab">
+		<div class="int">
+			<span>你的工作满意程度</span> 
+			<span>0%</span>
+		</div>
+		<div class="dot"></div>
+		<div class="box">
+			<div></div>
+		</div>	
+	</div>
+	<div class="tab">
+		<div class="int">
+			<span>你对XX的满足程度</span> 
+			<span>0%</span>
+		</div>
+		<div class="dot"></div>
+		<div class="box">
+			<div></div>
+		</div>	
+	</div>
+
+	<script>
+		//var tab = document.querySelectorAll('.tab div');
+		var tab = document.getElementsByClassName('tab');
+		var int = document.getElementsByClassName('int');
+		var dot = document.getElementsByClassName('dot');
+		var box = document.getElementsByClassName('box');
+		console.log(tab)
+		for(let i=0; i<tab.length; i++){
+			dot[i].onmousedown = function(e){
+				var bar = box[i].children[0];
+				var num = int[i].children[1];
+
+				e.preventDefault();
+				var startX = e.clientX;					
+				var barL = 	bar.offsetWidth;	
+														
+				document.onmousemove = function(e){
+					e.preventDefault();
+					var dotX = e.clientX;
+					var set = box[i].offsetLeft;
+					var len = box[i].offsetWidth;
+
+					num.innerHTML = parseInt((dotX-startX+barL)/len*100) +'%';
+					 				
+					//console.log(dotX,set)
+					if(dotX < set){
+						dotX = set;
+						num.innerHTML = '0%';
+					}
+					//console.log(dotX,set+len)	
+					if(dotX > set+len){
+						dotX = set+len;
+						num.innerHTML = '100%';
+					}
+						
+					dot[i].style.left = dotX + 'px';
+					bar.style.width = dotX-startX + barL + 'px';					
+				}
+			}
+			document.onmouseup = function(e){
+				document.onmousemove = null;
+			}
+		}
+	</script>
+</body>
+</html>

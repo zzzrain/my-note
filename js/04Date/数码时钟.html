@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>数码时钟</title>
+</head>
+<body>
+	<script>
+		setInterval(clock,1000);		
+		/*function clock(){
+			var now = new Date();
+			var hou = now.getHours();
+			var min = now.getMinutes();
+			var sec = now.getSeconds();
+			console.log(hou,min,sec)
+
+			var a = parseInt((hou+10)/10)-1;
+			var b = hou%10;
+			var m = parseInt((min+10)/10)-1;
+			var n = min%10;
+			var x = parseInt((sec+10)/10)-1;
+			var y = sec%10;
+
+			document.body.innerHTML = 
+			'<img src="img/' + a +'.png"><img src="img/' + b +'.png">' + '时' +
+			'<img src="img/' + m +'.png"><img src="img/' + n +'.png">' + '分' +
+			'<img src="img/' + x +'.png"><img src="img/' + y +'.png">' + '秒';			
+		}*/			
+		function clock(){
+			var now = new Date();
+			now = now.toTimeString();
+			now = now.substr(0,8);
+			now = now.replace(/:/gi,'');
+			console.log(now)
+			var str = '';
+			for(var i=0;i<now.length;i++){
+				str += '<img src="img/'+ now[i]+'.png">';
+			}
+			document.body.innerHTML = str;
+		}
+		clock();
+	</script>
+</body>
+</html>

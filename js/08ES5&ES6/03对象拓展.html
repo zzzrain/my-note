@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>对象拓展</title>
+	<script>
+		function merge(obj){
+			var val = {
+				sex:'male',
+				age:18
+			} 
+			/*for(var key in obj){
+				val[key] = obj[key]; 
+			}
+			return val;*/
+			// 对象合并
+			return Object.assign({},val,obj)
+		}		
+		console.log(merge({name:'xx',age:20}))
+
+		// 对象拷贝
+		var obj = {name:'xx',age:20};
+		var res1 = obj;  // 同一对象
+		var res2 = Object.assign({},obj); // 不同对象
+		console.log(res1 === obj,res2 === obj)		
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

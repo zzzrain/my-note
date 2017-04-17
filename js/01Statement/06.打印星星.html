@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>打印星星</title>
+</head>
+<body>
+	<script type="text/javascript">
+		for(var i=0; i<5; i++){
+			for(var j=0; j<=i; j++){
+				document.write('* ')
+			}
+			document.write('<br>')						
+		}
+		for(var i=0; i<=5; i++){
+			for(var j=5; j>i; j--){
+				document.write('* ')
+			}
+			document.write('<br>')						
+		}
+		for(var i=0; i<5; i++){
+			for(var j=0; j<i; j++){
+				document.write('&nbsp ')
+			}
+			for(var k=5; k>i; k--){
+				document.write(' *')
+			}
+			document.write('<br>')						
+		}
+		for(var i=0; i<5; i++){
+			for(var j=5; j>i+1; j--){
+				document.write('&nbsp ')
+			}
+			for(var k=0; k<=i; k++){
+				document.write('* ')
+			}
+			document.write('<br>')						
+		}
+	</script>
+</body>
+</html>

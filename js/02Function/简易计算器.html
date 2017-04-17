@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>简易计算器</title>
+	<style type="text/css">
+		ul,td{list-style: none;margin: 0;padding: 0;}
+		table{border-collapse: collapse;float: left;}
+		ul{float: left;}		
+		#box{overflow: hidden;width: 161px;margin: 30px auto;}		
+		#res,td,li{width: 40px;height: 38px;text-align: center;background: #f3f3f3;border:1px solid #fff;box-sizing: border-box;}
+		li{line-height: 38px;}
+		#res{width: 160px;line-height: 38px;float: left;}	
+		#put{width: 156px;line-height: 30px;text-align: right;float: left;}
+	</style>
+</head>
+<body>
+	<!-- 
+		1、缓存永远放在数组。数字获取后推送上数组，立即清空
+		2、永远只有两个数在运算，最后一个数字是按等于号推送
+		3、判断数字的输入顺序决定是否需要清空缓存
+		4、每次按运算符缓存内容都会发生改变
+		5、每次计算完后只会缓存结果
+		6、数字键只做判断和显示内容，不做计算
+	 -->
+	
+	<div id="box">
+		<input type="text" name="" id="put">
+		<table>
+			<tr>
+				<td>7</td>
+				<td>8</td>
+				<td>9</td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>5</td>
+				<td>6</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>2</td>
+				<td>3</td>
+			</tr>
+			<tr>
+				<td>0</td>
+				<td>.</td>
+				<td>C</td>
+			</tr>
+		</table>
+		<ul>
+			<li>+</li>
+			<li>-</li>
+			<li>*</li>
+			<li>/</li>
+		</ul>			
+		<div id="res">=</div>		
+	</div>
+	
+	<script type="text/javascript">
+		var box = document.getElementById('box');
+		var put = document.getElementById('put');
+		var tmp = [];
+		var num = '';
+		var cal = '';
+		var res = '';
+		var idx = 1;
+
+		box.onclick = function(e){
+			e = e || window.event;
+			var msg = e.target || e.scrElement;
+			// 获取数字
+			if(msg.tagName.toLowerCase() === 'td'){
+				// 	通过长度判断输入的数字顺序			
+				if(tmp.length<2){tmp = []}
+				// 清空按键
+				if(msg.innerHTML == 'C'){
+					tmp = [];
+					put.value = '';
+				}else{
+					num += msg.innerHTML;
+					put.value = num;
+				}
+				// 纠正运算符标识
+				idx = 1;
+			}
+			// 获取运算符，缓存累计结果
+			if(msg.tagName.toLowerCase() === 'li'){
+				// 防止空的内容推送上去
+				if(num != ''){
+					tmp.push(num);
+					num = '';
+				}
+				// 防止误按运算符
+				if(idx){
+					cal = msg.innerHTML;
+					tmp.push(cal);
+					cal = '';
+					idx = 0;
+				}				
+				console.log(tmp)
+
+				// 通过长度判断是否进行累加运算
+				if(tmp.length>2){
+					tmp[0] = Number(tmp[0]);
+					tmp[2] = Number(tmp[2]);
+					switch(tmp[1]){
+						case '+':
+							res = tmp[0] + tmp[2];
+						break;
+						case '-':
+							res = tmp[0] - tmp[2];
+						break;
+						case '*':
+							res = tmp[0] * tmp[2];
+						break;
+						case '/':
+							res = tmp[0] / tmp[2];
+						break;
+					}
+					tmp.splice(0,3,res);					
+					console.log(tmp)
+				}				
+			}
+			// 
+			if(msg.id.toLowerCase() === 'res'){
+				tmp.push(num);
+				num = '';
+				console.log(tmp)
+
+				tmp[0] = Number(tmp[0]);
+				tmp[2] = Number(tmp[2]);
+				switch(tmp[1]){
+					case '+':
+						res = tmp[0] + tmp[2];
+					break;
+					case '-':
+						res = tmp[0] - tmp[2];
+					break;
+					case '*':
+						res = tmp[0] * tmp[2];
+					break;
+					case '/':
+						res = tmp[0] / tmp[2];
+					break;
+				}
+				tmp = [];				
+				tmp.push(res);				
+				put.value = tmp;
+				console.log(tmp)
+				// 重置运算符标识
+				idx = 1;
+			}					
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>矩阵</title>
+	<style type="text/css">
+		span{display: inline-block;width: 25px;text-align: center;}
+	</style>
+</head>
+<body>
+	<p id="val"></p>
+	
+	<script type="text/javascript">
+		// 第n行就运算n个
+		var val = document.getElementById('val');
+		sqrt(25,val);	
+		
+		function sqrt(num,position){
+			var arr = [];
+			var res = [];
+			var sum = 0;
+			if(Math.sqrt(num)%1 != 0){
+				alert('你耍我啊')
+			}else{
+				for(var i=1; i<=num; i++){
+					arr.push(i);					
+					//position.innerHTML += '<span>' + arr + '<span/>';				
+					if(i%(Math.sqrt(num)) === 0){
+						position.innerHTML += arr + '<br/>';
+						res.push(arr);
+						arr = [];							
+					}					
+				}
+
+				console.log(res)
+				for(var i=0; i<res.length; i++){
+					for(var j=0; j<=i; j++){
+						sum += res[i][j];
+					}
+				}
+			}			
+			position.innerHTML += '左下半三角和为：' + sum; 		
+			return sum;			
+		}
+	</script>
+</body>
+</html>

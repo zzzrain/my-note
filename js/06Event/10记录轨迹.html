@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>记录窗口</title>
+	<style>
+		#box{position: absolute;width: 300px;height: 100px;background: #ccc;padding: 10px;}
+		#box div{line-height: 30px;}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<div>drag：<span>false</span></div>
+		<div>clientX：<span></span></div>
+		<div>clientY：<span></span></div>
+	</div>
+
+	<script>
+		var box = document.getElementById('box');
+		var drag = box.children[0].children[0];
+		var wide = box.children[1].children[0];
+		var high = box.children[2].children[0];
+		var arr = [];
+		
+		box.onmousedown = function(e){
+			// var x = e.offsetX;
+			// var y = e.offsetY;
+			arr.push({x:e.clientX,y:e.clientY});
+			document.onmousemove = function(e){
+				arr.push({x:e.clientX,y:e.clientY});
+
+				drag.innerHTML = 'true';
+				box.style.left = e.clientX + 'px';
+				box.style.top  = e.clientY + 'px';
+				wide.innerHTML = e.clientX + 'px';
+				high.innerHTML = e.clientY + 'px';
+
+				e.preventDefault();				
+			}
+			e.preventDefault();
+		}
+
+		var timer;	
+		box.onmouseup = function(e){
+			var idx = 0;
+			arr = arr.reverse();
+			drag.innerHTML = 'false';
+			clearInterval(timer);			
+			timer = setInterval(function(){
+
+				box.style.left = arr[idx].x + 'px';
+				box.style.top  = arr[idx].y + 'px';
+				wide.innerHTML = arr[idx].x + 'px';
+				high.innerHTML = arr[idx].y + 'px';
+
+				if(idx === arr.length-1){
+					clearInterval(timer);
+					arr = [];
+				}			
+				idx++;
+			},30);			
+			document.onmousemove = null;			
+		}
+	</script>
+</body>
+</html>

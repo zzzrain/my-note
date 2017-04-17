@@ -1,0 +1,15 @@
+﻿关键字：name、default
+
+split(',')/join('')/reverse()
+
+reload()/replace()
+
+nextSibling/previousSibling
+attribute:        属性、特质
+getComputedStyle: 获取计算的样式
+
+stopPropagation：停止传播
+preventDefault： 阻止默认
+contextmenu：右键菜单
+
+Object.assign({},obj)：对象拷贝

@@ -1,0 +1,4 @@
+﻿IP：Internet Protocol 网络协议
+DN：Domain Name 域名
+DNS：DN System  域名系统
+LDNS：Local DNS 本地服务

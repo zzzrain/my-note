@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>history</title>
+</head>
+<body>
+	<h1>后退页面</h1>
+	<button>后退</button><button>前进</button>
+	<p><a href="04before.html">后退页面</a></p>
+	<p><a href="04after.html">预读页面</a></p>
+	<script>
+		var btn = document.getElementsByTagName('button');
+		btn[0].onclick = function(){
+			history.back()
+		}
+		btn[1].onclick = function(){
+			history.forward();
+		}
+	</script>
+</body>
+</html>

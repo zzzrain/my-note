@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>属性操作</title>
+	<style>
+		#box{width: 300px;height: 300px;overflow: hidden;}
+		.border{border: 1px solid #f00;}
+		.active{background: pink;}
+		.none{display: none}
+	</style>
+</head>
+<body>
+	<button>按钮</button>
+	<div id="box" class="active" data-img="../img/star (9).jpg"><img></div>
+	<script>
+		let box = document.querySelector('#box');
+		let btn = box.previousElementSibling;
+		btn.onclick = ()=>{
+			box.classList.toggle('none');
+			box.classList.add('border');
+			box.classList.remove('active');
+			box.children[0].src = box.dataset.img;
+		}
+	</script>
+</body>
+</html>

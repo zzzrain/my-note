@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>无缝轮播</title>
+	<style>
+		#carousel{width:810px;height:320px;margin:0 auto;overflow:hidden;position:absolute;}
+		#wrap{position:absolute;top:0px;left:0px;} 
+		#wrap img{display:block;float:left;}
+		#prev,#next{display:none;width:60px;height:60px;opacity:0.7;overflow:hidden;
+			position:absolute;}
+		#prev{top:130px;left:0}
+		#next{top:130px;right:0}
+		#next img{position:absolute;top:-60px;}
+		#carousel:hover #prev,#carousel:hover #next{display:block;}
+		#page{position: absolute;bottom: 5px;right: 10px;}
+		#page span{display: inline-block;width: 20px;height: 20px;background: #fff;border-radius: 50%;margin: 0 5px;text-align: center;color: #aaa;}
+		#page .active{background: #ff0;}
+	</style>
+	<script src="../js/common.js"></script>
+	<script>		
+		document.addEventListener('DOMContentLoaded',()=>{
+			let car = document.querySelector('#carousel');
+			let box = document.querySelector('#wrap');
+			car.style.left = (window.innerWidth-car.offsetWidth)/2 +'px';
+			// car只需绑定定时器、事件和获取固定的width，其他属性调整全是box
+
+			// 克隆图片 
+			let imgclone = box.children[0].cloneNode(true);
+			box.appendChild(imgclone);
+
+			// 调整宽度
+			let len = box.children.length;
+			box.style.width = car.offsetWidth*len + 'px';
+
+			// 轮播效果
+			let idx = 0;
+			car.timer = setInterval(play,3000);
+			
+			// 移入移出
+			car.onmouseenter = ()=>{
+				clearInterval(car.timer);
+			}
+			car.onmouseleave = ()=>{
+				car.timer = setInterval(play,3000);	
+			}
+
+			// 点击效果
+			car.children[1].onclick = ()=>{
+				idx--;
+				show();
+			}
+			car.children[2].onclick = ()=>{
+				idx++;
+				show();
+			}
+
+			// 添加分页
+			let page = document.createElement('div');
+			car.appendChild(page);						
+			for(let i=1;i<len;i++){
+				let span = document.createElement('span');
+				page.appendChild(span);
+				span.innerHTML = i;				
+			}
+			page.id = 'page';
+			page.children[0].classList.add('active');			
+
+			function play(){
+				idx++;
+				show();					 
+			}
+			function show(){
+				// 轮播重置位置
+				if(idx === len){				
+					box.style.left = 0;
+					idx = 1;
+				}
+				// 点击重置位置
+				if(idx<0){
+					idx = len-2;
+				}
+
+				// 高亮效果
+				for(let i=0;i<len-1;i++){
+					page.children[i].classList.remove('active');
+				}
+				if(idx === len-1){
+					page.children[0].classList.add('active');
+				}else{
+					page.children[idx].classList.add('active');
+				}
+
+				// 轮播效果
+				animate(box,{left:-car.offsetWidth*idx});
+			}
+		});
+	</script>
+</head>
+<body>
+	<div id="carousel">
+		<div id="wrap">
+			<img src="img/001.jpg" alt="">
+			<img src="img/002.jpg" alt="">
+			<img src="img/003.jpg" alt="">
+			<img src="img/004.jpg" alt="">
+		</div>
+		<div id="prev"><img src="img/btn.gif"></div>		
+		<div id="next"><img src="img/btn.gif"></div>		
+	</div>
+</body>
+</html>

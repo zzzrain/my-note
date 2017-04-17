@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>获取元素</title>
+	<script>
+		function $(selector){
+			return new GetEle(selector);
+		}
+
+		// 创建并描述对象
+		function GetEle(selector){
+			this.selector = selector;
+			this.init();
+		}
+
+		// 获取元素
+		GetEle.prototype.init = function(){
+			var selector = this.selector;
+			var res;
+
+			try{
+				res = document.querySelectorAll(selector);
+			}catch(err){
+				if(/^#[\w\-]+/i.test(selector)){
+					res = document.getElementById(selector.substring(1));
+				}
+				else if(/^\.[\w\-]+/i.test(selector)){
+					res = document.getElementsByClassName(selector.substring(1));
+				}
+				else if(/^[a-z][\da-z]*/i.test(selector)){
+					res = document.getElementsByTagName(selector);
+				}
+			}
+
+			this.res = res;
+			// 为了链式调用
+			return this;
+		}
+
+		// 绑定事件
+		GetEle.prototype.on = function(type,handle){
+			for(var i=0;i<this.res.length;i++){
+				this.res[i]['on' + type] = handle;
+			}
+
+			return this;
+		}
+
+		// 显示元素
+		GetEle.prototype.show = function(){
+			for(var i=0;i<this.res.length;i++){
+				this.res[i].style.display = 'block'
+			}
+
+			return this;
+		}
+
+		// 隐藏元素
+		GetEle.prototype.hide = function(){
+			for(var i=0;i<this.res.length;i++){
+				this.res[i].style.display = 'none'
+			}
+
+			return this;
+		}
+
+		// 设置样式
+		GetEle.prototype.css = function(attr,val){
+			var res = this.res;
+			if(typeof attr === 'string' && val === undefined){
+				return getComputedStyle(res)[attr];
+			}
+
+			else{
+				if(typeof attr === 'object'){
+					for(var key in attr){
+						setStyle(key,attr[key]);
+					}
+				}else{
+					setStyle(attr,val);
+				}
+				
+				function setStyle(_attr,_val){
+					if(res.length === undefined){
+						res.style[_attr] = _val;
+					}else{
+						for(var i=0;i<res.length;i++){
+							res[i].style[_attr] = _val;
+						}
+					}
+				}		
+			}
+			
+			return this;
+		}
+
+		// 插入内容
+		GetEle.prototype.append = function(content){
+			for(var i=0;i<this.res.length;i++){
+				
+				document.createElement()
+				this.res.appendChild();
+			}			
+		}
+
+		/*Element.prototype.on = function(type,handle){
+			if(this.res.length){
+				for(var i=0;i<this.res.length;i++){
+					this.res[i]['on' + type] = handle;
+				}
+			}else{
+				this.res['on' + type] = handle;
+			}
+
+			return this;
+		}*/
+
+		document.addEventListener('DOMContentLoaded',()=>{
+			console.log($('#btn1'))
+			console.log($('.btn2'))
+			console.log($('div'));
+
+			$('#btn1').on('click',function(){
+				$('div').show();
+			});
+			$('.btn2').on('click',function(){
+				$('div').hide();
+			});
+			$('div').css({width:'100%',height:'50px',background:'#ff0',color:'#c00'});
+			
+
+			var box = document.querySelector('div');
+			var text = document.createElement('h2');
+			text.innerHTML = '呵呵';
+			box.appendChild(text)
+		});
+	</script>
+</head>
+<body>
+	<input type="button" id="btn1" value="显示">
+	<input type="button" class="btn2" value="隐藏">
+	<div></div>
+	<!-- <span>显示</span>
+	<span>隐藏</span> -->
+</body>
+</html>

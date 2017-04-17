@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>拖拽事件</title>
+	<style>
+		img{width: 100px;height: 100px;border-radius:50%;
+			position: absolute;top: 0;left: 0;}
+	</style>
+</head>
+<body>
+	<img src="../img/jpg (4).jpg" id="box">
+	<script>
+		var box = document.getElementById('box');
+
+		box.onmousedown = function(e){
+			// var x = e.offsetX;
+			// var y = e.offsetY;
+			document.onmousemove = function(e){				
+				// box.style.left = e.clientX - x/2 +'px';
+				// box.style.top  = e.clientY - y/2 +'px';
+				box.style.left = e.clientX - box.offsetWidth/2 +'px';
+				box.style.top  = e.clientY - box.offsetHeight/2 +'px';
+				e.preventDefault();
+			}
+			e.preventDefault();
+		}
+		document.onmouseup = function(e){
+			document.onmousemove = null;
+		}
+	</script>
+</body>
+</html>

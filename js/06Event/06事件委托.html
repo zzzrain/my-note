@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>事件委托</title>
+</head>
+<body>
+	<button id="add">添加</button>
+	<div id="box">
+		<button>按钮1</button>
+		<button>按钮2</button>
+	</div>
+
+	<script>
+		var add = document.getElementById('add');
+		var box = document.getElementById('box');
+		add.onclick = function(){
+			var btn = document.createElement('button');
+			btn.innerHTML = '按钮';
+			box.appendChild(btn);
+		}
+		box.onclick = function(e){
+			console.log(e.target)
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ES6类继承</title>
+</head>
+<body>
+	<script>
+		class Person{
+			constructor(name,age){
+				this.name = name;
+				this.age = age;
+			}
+			puplic(){
+				console.log('吃喝拉睡')
+			}
+
+			// 静态方法
+			static piao(){
+				console.log('还会女票')
+			}
+		}
+		var p1 = new Person('西门庆',9527);
+		console.log(p1)
+		p1.puplic();
+		Person.piao();
+
+		class Female extends Person{
+			constructor(name,age){
+				super(name,age)
+			}
+		}
+		var p2 = new Person('潘金莲',4396)
+		console.log(p2)
+		p2.puplic();
+		Female.piao();
+		
+	</script>
+</body>
+</html>

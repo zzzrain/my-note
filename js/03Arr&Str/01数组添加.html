@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>数组添加</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var arr = [];
+		for(var i=0; i<10; i++){
+			var num = parseInt(Math.random()*(999-100+1)+100);
+			//arr[i] = num;
+			//arr[arr.length] = num;
+			arr.push(num);			
+		}
+		var res = arr.concat([1,2,3]);	
+		console.log(res)
+		console.log(res.join(''))
+		console.log(res.reverse())
+		
+	</script>
+</body>
+</html>

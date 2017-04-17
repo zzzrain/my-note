@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>选项卡</title>
+	<style>
+		span{display: inline-block;width: 50px;line-height: 30px;padding: 2px;
+			text-align: center;}
+		div{width: 300px;height: 200px;background: orange;padding: 5px;
+			position: absolute;display: none;}
+		div:first-of-type{display: block;}
+		.active{background: orange;}
+	</style>
+	<script>
+		document.addEventListener('DOMContentLoaded',()=>{
+			function Tab(){
+				this.tab = document.querySelectorAll('span');
+				this.box = document.querySelectorAll('div');
+				
+				for(let i=0;i<this.tab.length;i++){
+					this.tab[i].onmouseenter = e=>{
+						this.enter(this.tab[i],this.box[i]);						
+					}					
+				}				
+			}
+
+			Tab.prototype.enter = function(tab,box){
+				for(let j=0;j<this.tab.length;j++){
+					this.tab[j].className = '';
+					this.box[j].style.display = 'none';
+				}
+				tab.className = 'active';
+				box.style.display = 'block';
+			}
+			
+			var tab = new Tab();
+		});
+	</script>
+</head>
+<body>
+	<span class="active">足球</span>
+	<span>篮球</span>
+	<span>网球</span>
+	<div>我系C朗</div>
+	<div>我系佐敦</div>
+	<div>我系奶牛</div>
+</body>
+</html>

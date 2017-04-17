@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>弹窗</title>
+	<style>		
+		header{padding:0 10px;height:50px;border-bottom:1px solid #ddd;line-height:50px;}
+		span{position:absolute;right:10px;top:15px;line-height:20px;}
+		span:hover{background-color: #ccc;color:#fff;}
+		main{padding:10px;}
+		#box1{position:absolute;width:200px;height:500px;border:1px solid;}
+		#box2{position:absolute;width:500px;height:200px;border:1px solid;}
+		#box3{position:absolute;width:500px;height:300px;border:1px solid;}
+	</style>
+	<script src="js/common.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded',()=>{
+			var mon= new Box('box1','马骝','柯屎唔洗手',true,false);			
+			var pig= new Box('box2','八戒','吃屎唔抹嘴',true,{x:0,y:0});			
+			var sha= new Box('box3','沙僧','担屎唔偷食',true,{x:0,y:0});
+		});
+
+		function Box(id,name,text,close,coord){
+			// 属性
+			this.id = id;
+			this.name = name;
+			this.text = text;
+			this.close = close;
+			this.coord = coord;
+			this.init();			
+		}
+		
+		// 初始化
+		Box.prototype.init = function(){
+			var box= document.createElement('div');
+			var btn= document.createElement('span');
+			var name= document.createElement('header');
+			var text= document.createElement('main');
+			box.appendChild(btn);
+			box.appendChild(name);
+			box.appendChild(text);
+			document.body.appendChild(box);
+
+			box.id= this.id;
+			btn.innerHTML = '×';
+			name.innerHTML= this.name;
+			text.innerHTML= this.text;
+			box.style.borderColor = color();
+			box.style.left = scope(0,window.innerWidth-box.offsetWidth) +'px';
+			box.style.top = scope(0,window.innerHeight-box.offsetHeight) +'px';
+
+			// 传递属性
+			this.ele= box;
+			
+			btn.onclick = e=>{
+				if(this.close){
+					this.hide();
+				}
+				else{
+					this.show();
+				}
+			}
+
+			box.onmousedown = e=>{
+				var startX = e.offsetX;
+				var startY = e.offsetY;
+				
+				document.onmousemove = e=>{
+					this.move(e.clientX - startX,e.clientY - startY);
+				}
+			}
+
+			document.onmouseup = e=>{
+				this.stop();
+			}
+		}
+
+		// 显示隐藏
+		Box.prototype.show = function(){
+			this.ele.style.display = 'block';
+			this.close = true;
+		}
+		Box.prototype.hide = function(){
+			this.ele.style.display = 'none';
+			this.close = false;
+		}
+
+		// 拖拽功能
+		Box.prototype.move = function(left,top){
+			if(this.coord){
+				this.coord.x = left;
+				this.coord.y = top;
+				this.down();
+			}
+		}
+
+		Box.prototype.down = function(){
+			this.ele.style.left = this.coord.x + 'px';
+			this.ele.style.top = this.coord.y + 'px';
+		}
+
+		Box.prototype.stop = function(){
+			document.onmousemove = null;
+		}	
+	</script>
+</head>
+<body>
+
+</body>
+</html>

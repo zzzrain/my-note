@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script>
+	window.onload = function(){
+		var arr = [
+            {
+                label: "用户名",
+                name: "username",
+                type: "text"
+            }, 
+            {
+                label: "密码",
+                name: "password",
+                type: "password"
+            }, 
+            {
+                label: "性别",
+                name: "gender",
+                type: "select",
+                value: ['男', '女', '不男', '不女', 'Gay', '妖王']
+            }, 
+            {
+                label: "爱好",
+                name: "hobby",
+                type: "checkbox",
+                value: ['篮球', '足球', '羽毛球', '兵乓球', '爬山', '购物', '旅游', '看美女']
+            }, 
+            {
+                label: '是否已婚',
+                name: 'married',
+                type: 'radio',
+                value: ['已婚', '未婚']
+            },           
+            {
+                label: '简介',
+                name: 'resume',
+                type: 'textarea'
+            }
+        ];
+
+        arr.forEach(function(item,idx){
+            // 生成框架
+            var p = document.createElement('p');
+            var label = document.createElement('label');
+            label.innerHTML = item.label + '：';
+            p.appendChild(label);  
+            document.body.appendChild(p); 
+
+            // 用户名及密码
+            if(item.type === 'text' || item.type === 'password'){
+                var user = document.createElement('input');               
+                user.type = item.type;
+                user.name = item.name;
+                p.appendChild(user);
+            }
+
+            // 单选复选
+            if(item.type === 'checkbox' || item.type === 'radio'){
+                for(var k in item.value){
+                    var box = document.createElement('input');
+                    var lab = document.createElement('lable');
+                    box.type = item.type;
+                    box.name = item.label;
+                    lab.innerHTML = item.value[k]; 
+                    p.appendChild(box);
+                    p.appendChild(lab);
+                }             
+            }
+
+            // 下拉
+            if(item.type === 'select'){
+                var gender = document.createElement('select');
+                for(var j in item.value){
+                    var option = document.createElement('option');
+                    option.innerHTML = item.value[j];
+                    gender.appendChild(option);
+                }
+                p.appendChild(gender);
+            }
+
+            // 简介    
+            if(item.type === 'textarea'){
+                var br = document.createElement('br');
+                var area = document.createElement('textarea');
+                p.appendChild(br);
+                p.appendChild(area);
+            } 
+        });        
+	}
+	</script>
+</head>
+<body>
+    
+</body>
+</html>

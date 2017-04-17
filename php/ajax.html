@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script>
+		document.addEventListener('DOMContentLoaded',()=>{
+			let  = document.querySelector();
+			let xhr = new XMLHttpRequest();
+			xhr.open('get','http://localhost/note',true);
+			xhr.send;
+			xhr.onreadystatechange = ()=>{
+				if(xhr.readyState === 4 && xhr.status === 200){
+					let res = xhr.responseText;
+					console.log(res)
+				}
+			}
+		});
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

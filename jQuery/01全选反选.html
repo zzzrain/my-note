@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>全选反选</title>
+	<style>
+		ul{list-style:none;width: 200px;margin: 0;padding: 0;}
+		li{padding: 5px}
+		.active{background: pink;}
+	</style>
+	<script src="js/jquery-3.1.1.js"></script>
+	<script>
+	   $(document).ready(function(){
+	   		var $box = $('ul li');
+		   	// 全选
+			$('div :checkbox').eq(0).click(function(){
+				
+			});
+
+			// 反选
+			$('div :checkbox').eq(1).click(function(){	
+				
+			});
+
+			// 单选
+			$box.each(function(){
+				
+			});
+		});
+	</script>
+</head>
+<body>
+	<div>
+		<input type="checkbox" name="check">全选
+		<input type="checkbox" name="invent">反选
+	</div>	
+	<ul>
+		<li><input type="checkbox">HiFi</li>
+		<li><input type="checkbox">山地车</li>
+		<li><input type="checkbox">单反相机</li>
+		<li><input type="checkbox">固态硬盘</li>
+		<li><input type="checkbox">机械键盘</li>
+		<li><input type="checkbox">动漫手办</li>
+		<li><input type="checkbox">卡巴基佬</li>
+		<li><input type="checkbox">图吧图丁</li>
+		<li><input type="checkbox">网易云音乐</li>
+	</ul>
+</body>
+</html>

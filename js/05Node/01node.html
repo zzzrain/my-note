@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>节点</title>
+	<style>
+		#node{height: 50px;background:#f0f}
+	</style>
+</head>
+<body>
+	<div id="node">
+		<a href="">Sasaki Nozomi</a>
+		<a href="">Ayumi Hamasaki</a>
+		<a href="">Aragaki Yui</a>
+	</div>
+	<script>
+		var node = document.getElementById('node');
+		var shu = node.attributes[0];
+		var txt = node.childNodes[0];
+
+		var arr = node.childNodes;
+		console.log(arr)
+		// 过滤元素节点
+		function getNode(arr){
+			var res = [];
+			for(var i=0;i<arr.length;i++){
+				if(arr[i].nodeType === 1){
+					res.push(arr[i]);
+				}
+			}
+			return res;
+		}
+		console.log(getNode(arr))
+	</script>
+</body>
+</html>

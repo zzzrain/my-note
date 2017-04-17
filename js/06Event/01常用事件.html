@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>常用事件</title>
+	<style>
+		body{height: 2000px;}
+		#fix{width: 100%;position: fixed;top: 0;left: 0;padding: 20px}
+		#box{width: 500px;height: 300px;background: #ff0;
+			position: absolute;top: 200px;left: 400px;}
+	</style>
+</head>
+<body>
+	<div id="fix">
+		<input type="text" name="">
+		<button>按钮测试</button>
+		<ul>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+		<div id="box"></div>
+	</div>
+	
+	<script>
+		var put = document.getElementsByTagName('input')[0];
+		var btn = document.getElementsByTagName('button')[0];
+		var ul = document.getElementsByTagName('ul')[0];
+		var box = document.getElementById('box');
+		/*put.oninput = function(){
+			alert('你已输入')
+		}*/
+		/*put.onfocus = function(){
+			alert('获得焦点')
+		}*/
+		/*put.onblur = function(){
+			alert('失去焦点')
+		}*/
+		btn.onmousedown = function(e){
+			e = e || window.event;
+			alert(e.button);
+		}
+		box.onmousemove = function(e){
+			e = e || window.event;
+			ul.children[0].innerHTML = '相对偏移量：' + e.offsetX + ',' + e.offsetY;
+		}
+		document.onmousemove = function(e){
+			e = e || window.event;
+			ul.children[1].innerHTML = '文档的位置：' + e.pageX + ',' + e.pageY;
+			ul.children[2].innerHTML = '浏览器位置：' + e.clientX + ',' + e.clientY;
+			ul.children[3].innerHTML = '屏幕的位置：' + e.screenX + ',' + e.screenY;
+		}		
+		document.onkeydown = function(e){
+			e = e || window.event;
+			put.value = String.fromCharCode(e.keyCode);
+		}
+		document.onkeyup = function(e){
+			e = e || window.event;
+			put.value = e.keypress;
+		}
+	</script>
+</body>
+</html>

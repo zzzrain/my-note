@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>聊天室</title>
+	<style>
+		#chat{width:800px;margin:0 auto;display: none;}
+		#cont{height:380px;overflow-y:auto;border:5px solid #ddd;}
+		#cont h4{margin-bottom:0;}
+		#cont p{margin-top:10px;word-wrap: break-word;}
+		#send{text-align:right;}
+		textarea{display:block;margin:10px 0;width:100%;min-height:80px;box-sizing:border-box;text-align:left;}
+	</style>
+	<script src="js/common.js"></script>
+	<script>
+	document.addEventListener('DOMContentLoaded',()=>{
+		let door = document.querySelector('#door');
+		let xing = door.querySelectorAll('[name=gender]');
+		let user = door.querySelector('[name=user]');
+		let login = door.querySelector('button');
+		
+		let chat = document.querySelector('#chat');
+		let logout =  chat.querySelector('#logout');
+		let cont = chat.querySelector('#cont');		
+		let send = chat.querySelector('#send');
+		let text = chat.querySelector('textarea');
+
+		var _user;
+		var _xing;
+
+		// 读取cookie
+		// var _user = getCookie('name');		
+		// var _xing = getCookie('gender');	
+
+		// 消息处理
+		send.onclick = updata;
+		document.onkeyup = e=>{
+			e.preventDefault();
+			if(e.keyCode === 13){
+				updata();
+			}
+		}
+
+		// 缓存登录
+		load();		
+
+		// 普通登录
+		login.onclick = ()=>{
+			_user = user.value;			
+			for(let i=0;i<xing.length;i++){
+				if(xing[i].checked){
+					_xing = xing[i].value;
+				}
+			}
+			console.log(_user,_xing)
+			// 写入cookie
+			// setCookie('name',_user);
+			// setCookie('gender',_xing);
+
+			// 登录状态标记
+			load('login');
+		}
+
+		// 退出登录
+		logout.onclick = ()=>{
+			load('logout');
+		}
+		
+		// 判断登录状态（缓存登录、普通登录、退出登录）
+		function load(state){
+			// cookie写法
+			/*if(_user && _xing){
+				skip();
+			}else{
+				location.reload();
+			}*/
+			ajax({
+				url:'http://localhost/note/chatsession.php',
+				data:{state:state,user:_user,gender:_xing},
+				callback:function(res){
+					console.log(res)
+					if(res === '') return;
+					if(res === 'login'){
+						skip();
+					}else if(res === 'logout'){
+						location.reload();
+					}else{
+						_user = res.user;		
+						_xing = res.gender;	
+						skip();
+					}
+				}
+			});
+		}
+
+		// 页面切换函数
+		function skip(){
+			door.style.display = 'none';
+			chat.style.display = 'block';
+			ajax({url:'data/chat.json',callback:reload});
+		}
+
+		// 处理即时数据，更新页面内容（请求两次）
+		function updata(){
+			ajax({
+				url:'http://localhost/note/chatroom.php',
+				data:{user:_user,gender:_xing,text:text.value},
+				callback:function(res){
+					console.log(res)
+					ajax({url:'data/chat.json',callback:reload});
+				}
+			});
+			text.value = '';
+			text.focus();
+		}
+
+		// 页面内容函数
+		function reload(res){
+			console.log(res)
+			if(res!=0){
+				let ul = document.createElement('ul');
+				// map方法直接返回一个数组
+				ul.innerHTML = res.map(item=>{
+					return `<li>
+					<h4>${item.name}</h4>
+					<p>${item.content}</p>
+					</li>`;
+				}).join('');
+				cont.innerHTML = '';
+				cont.appendChild(ul);
+
+				// 滚动到可视区域
+				ul.lastChild.scrollIntoView();
+			}						
+		}
+	});
+	</script>
+</head>
+<body>
+	<div id="door">
+		<input type="text" name="user">
+		<input type="radio" name="gender" value="男">男
+		<input type="radio" name="gender" value="女">女
+		<button>登录</button>
+	</div>
+	<div id="chat">
+		<div id="logout"><button>退出</button></div>
+		<div id="cont"></div>
+		<textarea></textarea>
+		<div id="send"><button>发送</button></div>
+	</div>	
+</body>
+</html>

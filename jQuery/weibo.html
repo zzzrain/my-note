@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>微博消息</title>
+	<style>
+		ul{list-style: none;width: 600px;padding: 0 20px;border: 1px solid #0d0;}
+		ul li{border-bottom: 1px dashed #ccc;position: relative;}
+		ul li:last-child{border-bottom: none}
+		ul li h3{color:#a00;}
+		ul li p{background: #eee;line-height: 30px}
+		ul li span{position:absolute;top:-5px;width:30px;right:0;padding:10px 5px 10px 25px;
+			background:skyblue url(icon/com.svg) no-repeat 5px center;
+			background-size:20px;border-radius: 5px;text-align:center;color:#fff;}
+		ul li span.like{right:70px;background-image:url(icon/zan.svg);background-color:orange;}
+	</style>
+	<script>
+		document.addEventListener('DOMContentLoaded',()=>{
+			let xhr = new XMLHttpRequest();
+			
+			xhr.open('get','http://localhost/note/weibo.php',true);
+			xhr.send();
+			xhr.onreadystatechange = ()=>{
+				if(xhr.readyState === 4 && xhr.status === 200){
+					let res = JSON.parse(xhr.responseText);
+					console.log(res)
+
+					let ul = document.createElement('ul');
+					res.forEach(item=>{
+						let li = document.createElement('li');
+						li.setAttribute('data-guid',item.id);
+						li.innerHTML = `<h3>${item.username}</h3><p>${item.content}</p>
+						<span class="like">${item.likecnt}</span>
+						<span class="comt">${item.comtcnt}</span>`;
+						ul.appendChild(li);
+					});
+					document.body.appendChild(ul);
+				}
+			}
+
+			// 点击改变数据(发送局部请求)
+			document.body.onclick = e=>{
+				if(e.target.className === 'like'){
+					// 声明目标父级的标识
+					let guid = e.target.parentNode.dataset.guid;
+
+					xhr.open('get','http://localhost/note/weibo.php?id='+guid,true);
+					xhr.send();
+					xhr.onreadystatechange = ()=>{
+						if(xhr.readyState === 4 && xhr.status === 200){
+							let res = JSON.parse(xhr.responseText);
+							console.log(res)
+							e.target.innerHTML = res.likecnt;
+						}
+					}
+				}	
+			}
+		});
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>下拉菜单</title>
+	<style>
+		ul{display: none;width: 300px;}
+		.active{background: #ddd;}
+	</style>
+</head>
+<body>
+	<input type="text">
+	<ul>
+		<li>老虎机</li>
+		<li>斗地主</li>
+		<li>打麻将</li>
+		<li>俄罗斯轮盘</li>
+	</ul>
+
+	<script>
+		var input = document.getElementsByTagName('input')[0];
+		var ul = document.getElementsByTagName('ul')[0];
+		var li = ul.children;
+		var len = li.length;
+		var idx = -1;
+
+		input.onfocus = function(){
+			ul.style.display = 'block';
+		}
+		input.onblur = function(){
+			ul.style.display = 'none';
+		}
+		// 键盘事件
+		document.onkeyup = function (e){
+			for(var i=0;i<len;i++){
+				li[i].className = '';				
+			}
+			if(e.keyCode === 38){
+				idx--;				
+				if(idx < 0){idx = len-1;}
+				li[idx].className = 'active';				
+			}
+			if(e.keyCode === 40){
+				idx++;				
+				if(idx > len-1){idx = 0;}
+				li[idx].className = 'active';
+			}
+			if(e.keyCode === 13 && idx >= 0){
+				input.value = li[idx].innerHTML;
+			}
+		}
+		// 鼠标事件
+		for(let i=0;i<len;i++){
+			li[i].onmouseover = function(){
+				for(var j=0;j<len;j++){
+					li[j].className = '';				
+				}
+				this.className = 'active';
+			}
+			li[i].onclick = function(){
+				input.value = this.innerHTML;
+			}
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>表格选取</title>
+	<style>
+		body{padding:50px;}
+		.datalist{
+			border:1px solid #ccc;
+			width:100%;
+			border-collapse: collapse;
+		}
+		.datalist td,.datalist th{padding:5px 10px;border:1px solid #ccc;}
+		.datalist tr.even{background-color:#efefef;}
+		.datalist tr.active{background-color:#fc0;color:#fff;}
+		/*.datalist tr:nth-child(even){background-color:#efefef;}*/
+	</style>
+	<script src="js/jquery-3.1.1.js"></script>
+	<script>
+		$(function(){
+			var $ele = $('.datalist tbody tr');
+
+			$('.tr1').on('click',function(){				
+				// ele.eq(0).addClass('active').
+				// find(':checkbox')[0].checked = true;
+				$ele.eq(0).addClass('active').find(':checkbox').
+				prop('checked',true);
+			});
+
+			$('.tr3').on('click',function(){				
+				$ele.eq(2).addClass('active').
+				find(':checkbox').prop('checked',true);
+			});
+
+			$('.ds2').on('click',function(){				
+				$ele.eq(-2).addClass('active').
+				find(':checkbox').prop('checked',true);
+			});
+
+			$('.tr3-5').on('click',function(){				
+				$ele.slice(2,5).addClass('active').
+				find(':checkbox').prop('checked',true);
+			});
+
+			// 反选
+			$('#fx').on('click',function(){	
+				$ele.each(function(idx,item){
+					if($(item).hasClass('active')){
+						$(item).removeClass('active');
+						$(item).find(':checkbox').prop('checked',false);
+					}else{
+						$(item).addClass('active');
+						$(item).find(':checkbox').prop('checked',true);
+					}
+				});			
+			});
+
+			// 全选
+			$('#all').on('click',function(){
+				var $checked = $(this).prop('checked');
+				$ele[$checked?'addClass':'removeClass']('active').
+				find(':checkbox').prop('checked',$checked);
+			});
+
+			// 单选
+			$ele.on('click',function(){
+				$(this).toggleClass('active').find(':checkbox').
+				prop('checked',$(this).hasClass('active'));
+			});
+
+			var $key = $('#key');
+			$key.next().click(function(){
+				 $ele.filter(':contains('+$key.val()+')').addClass('active').
+				 find(':checkbox').prop('checked',true);
+			});
+		});
+	</script>
+</head>
+<body>
+	<button class="tr1">第1个tr</button>
+	<button class="tr3">第3个tr</button>
+	<button class="ds2">倒数第2个tr</button>
+	<button class="tr3-5">第3-5个tr</button>
+	<button id="fx">反选</button>
+	<input type="text" id="key">
+	<button>选择</button>
+	<table class="datalist">
+		<thead>
+			<tr>
+				<th width="20"><input type="checkbox" id="all"></th>
+				<th width="10">#</th>
+				<th>姓名</th>
+				<th>昵称</th>
+				<th>年龄</th>
+				<th>性别</th>
+				<th>是否单身</th>
+				<th>爱好</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><input type="checkbox" name="check"></td>
+				<td>1</td>
+				<td>关羽</td>
+				<td>关二哥</td>
+				<td>49</td>
+				<td>男</td>
+				<td>否</td>
+				<td>装逼</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="check"></td>
+				<td>2</td>
+				<td>张飞</td>
+				<td>张三</td>
+				<td>45</td>
+				<td>男</td>
+				<td>是</td>
+				<td>喝酒</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="check"></td>
+				<td>3</td>
+				<td>赵云</td>
+				<td>赵四</td>
+				<td>33</td>
+				<td>男</td>
+				<td>是</td>
+				<td>跳舞</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="check"></td>
+				<td>4</td>
+				<td>奥巴马</td>
+				<td>小黑</td>
+				<td>56</td>
+				<td>男</td>
+				<td>否</td>
+				<td>打篮球，段子</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="check"></td>
+				<td>5</td>
+				<td>李宇春</td>
+				<td>春哥</td>
+				<td>30</td>
+				<td>女</td>
+				<td>是</td>
+				<td>唱歌</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="check"></td>
+				<td>6</td>
+				<td>岳云鹏</td>
+				<td>小月月</td>
+				<td>32</td>
+				<td>男</td>
+				<td>否</td>
+				<td>相声，段子，唱歌</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

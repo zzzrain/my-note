@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>转码</title>
+	<script>		
+		String.prototype.char = function(data){
+			var str = '';
+			for(var i=0;i<data.length;i++){
+				str += data.charCodeAt(i) + ',';
+			}
+			return str.slice(0,-1);
+		}
+
+		String.prototype.unchar = function(data){
+			var str = '';
+			for(var i=0;i<data.length;i++){
+				str += String.fromCharCode(data[i]);
+			}
+			return str;
+		}
+
+		console.log(''.char('呵呵'))
+		console.log(''.unchar([21621,21621]))
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

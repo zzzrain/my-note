@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>免登陆</title>
+</head>
+<body>
+	<form>
+		<p>用户：<input type="text"></p>
+		<p>密码：<input type="text"></p>
+		<p>
+			<input type="checkbox">七天免登陆
+			<button>登录</button>
+		</p>
+	</form>
+
+	<script>
+		var form = document.forms[0];
+		var user = form.children[0].children[0];
+		var pass = form.children[1].children[0];
+		var gou =  form.children[2].children[0];
+		var btn =  form.children[2].children[1];
+
+		// 触发事件并保存cookie
+		btn.onclick = function(e){
+			var _user = user.value;
+			var _pass = pass.value;
+
+			// 判断非空
+			if(_user === ''||_pass === ''){
+				return false;
+			}
+			// 判断勾选
+			if(gou.checked){
+				var now = new Date();
+				now.setDate((now.getDate()+7));
+				console.log(now)
+				document.cookie = 'username=' + _user + ';expires=' + now;
+				document.cookie = 'password=' + _pass + ';expires=' + now;
+			}
+						
+			var index = document.createElement('div');
+			index.innerHTML = '欢迎回来,'+ user.value;
+			form.parentNode.replaceChild(index,form);
+			// 阻止表单提交
+			e.preventDefault();
+		}
+
+		// 获取cookie并显示
+		
+		var msg = document.cookie.split('; ')
+		msg.forEach(function(item){
+			item = item.split('=');	
+			console.log(item)
+			if(item[0] === 'username'){
+				user.value = item[1];
+			}
+			if(item[0] === 'password'){
+				pass.value = item[1];
+			}
+		});
+	</script>
+</body>
+</html>

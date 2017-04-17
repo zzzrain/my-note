@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>操作方法</title>
+	<style>
+		img{width: 200px;height: 250px;}
+	</style>
+</head>
+<body>
+	<p id="btn"><button>复制</button><button>替换</button></p>
+	<p>
+		<span><img src="../../img/paprika.jpg"></span>
+	</p>
+		
+	<script>
+		var btn = document.getElementById('btn');
+		var copy = btn.children[0];
+		var re = btn.children[1];
+		var sum = btn.nextElementSibling;		
+		var img = sum.children[0];
+
+		copy.onclick = function(){
+			var _img = img.cloneNode(true);
+			sum.appendChild(_img);
+		}
+
+		var i = 0;
+		re.onclick = function(){
+			if(i === sum.children.length){
+				alert('够了');
+			}else{
+				var hot = document.createElement('img');
+				hot.src = '../../img/firerice.gif';
+				sum.replaceChild(hot,sum.children[i]);
+				i++;
+			}			
+		}			
+	</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>判断年份</title>	
+</head>
+<body>
+	<input type="text" name="" id="val"><button id="btn">判断</button>
+	<p id="out"></p>
+	<script type="text/javascript">
+		var val = document.getElementById('val');
+		var btn = document.getElementById('btn');
+		var out = document.getElementById('out');
+		btn.onclick = function(){
+			var res = val.value;
+			console.log(res)
+			//四年一闰，百年不闰，四百再闰
+			if(res%4 == 0 && res%100 != 0  || res%400 == 0){
+				out.innerHTML = '闰年'
+			}else{
+				out.innerHTML = '平年'
+			}
+		}
+	</script>	
+</body>
+</html>

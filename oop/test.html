@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>检测实例</title>
+</head>
+<body>
+	<script>
+		function Boxs(name){
+			this.name = name;
+		}
+
+		Boxs.prototype.init = function(){
+			console.log('没标识')
+		} 
+		/*Boxs.prototype = {
+			init:function(){
+				console.log('没标识');
+			}
+		}*/
+
+		var box1 = new Boxs('box1');
+		box1.init();
+
+		Boxs.prototype = {
+			// 识别指针
+			constructor:Boxs,
+			sign:function(){
+				console.log('已标识');
+			}
+		}		
+		
+		var box2 = new Boxs('box2');
+		box2.sign();
+
+		console.log(box1,box2)
+
+		// 判断原型、实例是否构造函数生成
+		console.log(Boxs.prototype.constructor === Boxs)
+		console.log(box1.constructor === Boxs) 
+		console.log(box2.constructor === Boxs)
+
+		// 判断实例是否构造函数生成
+		console.log(box1 instanceof Boxs) // false
+		console.log(box2 instanceof Boxs)
+
+		// 判断当前对象是否实例的原型
+		console.log(Boxs.isPrototypeOf(box1))
+		console.log(Boxs.isPrototypeOf(box2))
+
+		// 获取实例的原型(ES5静态方法)
+		console.log(Object.getPrototypeOf(box1))
+		console.log(Object.getPrototypeOf(box2))
+
+		// 判断属性
+		console.log(box1.hasOwnProperty('size'))
+		// 判断方法
+		console.log('toString' in box1)
+		console.log('init' in box1)
+	</script>
+</body>
+</html>

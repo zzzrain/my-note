@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>放大镜</title>
+    <style>
+        body{position: relative;}
+    	.wrap{position:absolute;}
+        .wrap img{display: block;}
+    	.wrap .zoom{position: absolute;border:1px solid #fc0;background-color:#ff0;background-color: rgba(255,255,0,0.3);filter:alpha(Opacity=30);}
+    	.large{position: absolute;width:480px;height:300px;overflow:hidden;}
+    	.large img{position: absolute;}
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded',()=>{
+            function Zoom(){
+                this.init();
+            }
+           
+            Zoom.prototype.init = function(){
+                this.wrap = document.querySelector('.wrap');
+                this.imgX = this.wrap.children[0];
+
+                this.wrap.onmouseenter = e=>{
+                    this.enter();
+                }
+
+                this.wrap.onmousemove = e=>{
+                    // 把放大镜中心定位到鼠标位置
+                    this.move(
+                        e.pageX - this.wrap.offsetLeft - this.zoom.offsetWidth/2,
+                        e.pageY - this.wrap.offsetTop - this.zoom.offsetHeight/2
+                    );
+                }
+
+                this.wrap.onmouseleave = e=>{
+                    this.leave();
+                }
+            }
+
+            Zoom.prototype.enter = function(){
+                // 生成放大镜 
+                this.zoom = document.createElement('span');
+                this.zoom.classList.add('zoom');
+                this.wrap.appendChild(this.zoom);
+
+                // 生成大图
+                this.large = document.createElement('div');
+                this.imgL = new Image();
+                this.imgL.src = this.imgX.dataset.large;        
+                this.large.classList.add('large');
+                this.large.appendChild(this.imgL);
+                document.body.appendChild(this.large);
+
+                // 定位大图
+                this.large.style.left = this.imgX.offsetLeft + this.imgX.offsetWidth + 20 +'px';
+                this.large.style.top = this.imgX.offsetTop +'px';
+
+                // 计算比例        
+                this.ratio = this.imgX.offsetWidth/this.imgL.offsetWidth;
+
+                // 根据比例改变放大镜的形状
+                this.zoom.style.width = this.large.offsetWidth*this.ratio + 'px';
+                this.zoom.style.height = this.large.offsetHeight*this.ratio + 'px';
+                console.log(this.zoom.style.width,this.zoom.style.height)
+            }
+
+            Zoom.prototype.move = function(left,top){
+                // 边界判定
+                var wide = this.imgX.offsetWidth - this.zoom.offsetWidth;
+                var high = this.imgX.offsetHeight - this.zoom.offsetHeight;
+
+                if(left < 0){
+                    left = 0;
+                }else if(left > wide){
+                    left = wide;
+                }
+
+                if(top < 0){
+                    top = 0;
+                }else if(top > high){
+                    top = high;
+                }
+
+                // 定位放大镜
+                this.zoom.style.left = left + 'px';
+                this.zoom.style.top = top + 'px';
+
+                // 定位放大区域
+                this.imgL.style.left = -left/this.ratio + 'px';
+                this.imgL.style.top = -top/this.ratio + 'px';
+            }
+
+            Zoom.prototype.leave = function(){
+                this.wrap.removeChild(this.zoom);
+                document.body.removeChild(this.large);
+            }
+
+            var zoom = new Zoom();
+        });         	
+    </script>
+</head>
+
+<body>
+    <div class="wrap"><img src="img/car_min.jpg" data-large="img/car.jpg"></div>
+</body>
+</html>

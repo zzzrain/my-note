@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>猴子跳跃</title>
+	<style>
+		img{position: absolute;}
+	</style>
+</head>
+<body>
+	<img src="img/1.gif">
+	
+	<script>
+		var monk = document.images[0];
+		var arr = [];
+
+		document.onmousedown = function(e){
+			monk.src = "img/2.gif";
+			arr.push({x:e.clientX,y:e.clientY});
+			document.onmousemove = function(e){
+				arr.push({x:e.clientX,y:e.clientY});
+				e.preventDefault();				
+			}
+			e.preventDefault();
+		}
+
+		var timer;	
+		document.onmouseup = function(e){
+			var idx = 0;
+			clearInterval(timer);			
+			timer = setInterval(function(){
+				monk.style.left = arr[idx].x + 'px';
+				monk.style.top = arr[idx].y + 'px';
+				if(idx === arr.length-1){
+					clearInterval(timer);
+					arr = [];
+					monk.src = "../img/1.gif";
+				}			
+				idx++;
+			},30);			
+			document.onmousemove = null;			
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>滚动新闻</title>
+</head>
+<body>
+	<input type="text" name="" id="put" size="30">
+	<button id="btn">最新消息</button>
+	<ul id="newslist"></ul>
+
+	<script>
+		var news = [
+			{val:'北京原副书记吕锡文被控受贿1878万 获刑13年'},
+			{val:'马云办学:是值得称颂还是躲在教育背后的物欲横流?'},
+			{val:'港媒:曾荫权罪名成立周三判刑 即时还押不准保释'},
+			{val:'95后快递员捡百万巨款还失主：不是我的一分不拿'},
+			{val:'林妙可继落榜北电后 又无缘中央音乐学院'},
+		]
+		var put = document.getElementById('put');
+		var btn = document.getElementById('btn');
+		var newslist = document.getElementById('newslist');
+		
+		var timer = setInterval(function(){
+			news.push(news.shift());
+			read();
+		},1000);
+
+		function read(){
+			var msg = '';
+			for(var i=0;i<news.length;i++){
+				if(i === 5){break;}
+				msg += '<li><a href="baidu.com">' + news[i].val + '</a></li>';
+			}
+			/*news.forEach(function(item,idx){
+				msg += '<li><a href="baidu.com">' +item + '</a></li>';
+			})*/
+			newslist.innerHTML = msg;
+		}
+		
+		btn.onclick = function(){
+			var hot = {val:put.value};
+			news.unshift(hot);			
+			put.value = '';	
+			read();		
+		}
+
+		read();
+	</script>
+</body>
+</html>

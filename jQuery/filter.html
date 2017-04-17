@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>名单过滤</title>
+	<style>
+		ul{list-style: none;padding:0;margin:0;}
+		.datalist{display:none;max-height:300px;width:200px;border:1px solid #ddd;padding:10px;line-height:2;overflow-y:auto;}
+		.datalist li{padding-left:10px;border-bottom:1px dotted #ddd;}
+		.datalist li:last-child{border:none;}
+		.datalist li:hover{background-color: #efefef;}
+		#keyword{width:218px;}
+	</style>
+	<script src="js/jquery-3.1.1.js"></script>
+	<script>
+		$(()=>{
+			// ajax请求数据并生成html结构
+			$.ajax({
+				url:'data/class.json',
+				success:function(data){
+					console.log(data);
+					$.each(data,function(idx,name){
+						console.log(idx,name);
+						$('<li/>').html(name).appendTo($('.datalist'));
+					});
+				}
+			});
+
+			// 输入过滤
+			$('#keyword').keyup(function(){
+				$('.datalist').children().hide().filter(':contains('+$('#keyword').val()+')').show();
+			}).focus(function(){
+				$('.datalist').slideDown();
+			}).blur(function(){
+				$('.datalist').slideUp();
+			});
+
+
+			// 事件委托
+
+			/*$('.datalist').click(function(e){
+				if($(e.target).is('li')){
+					$('#keyword').val($(e.target).html());
+				}
+			});*/
+
+			$('.datalist').on('click','li',function(){
+				$('#keyword').val($(this).html());
+			});
+		});
+	</script>
+</head>
+<body>
+	<input type="text" id="keyword">
+	<ul class="datalist"></ul>
+</body>
+</html>

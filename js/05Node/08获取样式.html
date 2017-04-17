@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>获取样式</title>
+	<style>
+		div{width: 200px;height: 200px;background: #ffc;}
+	</style>
+</head>
+<body>
+	<div id="box"></div>
+	<script>
+		var box = document.getElementById('box');
+		//var css = box.style;
+		var css = getComputedStyle(box);
+		console.log(css.width)
+		function getcss(ele,css){
+			return getComputedStyle(ele)[css];
+		}
+		console.log(getCss(box,'width'))
+	</script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+.zoom-wrap{position:absolute;}
+.zoom-wrap .zoom{position: absolute;border:1px solid #fc0;}
+.zoom-large{position: absolute;overflow:hidden;}
+.zoom-large img{position: absolute;}

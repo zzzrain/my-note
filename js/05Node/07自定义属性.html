@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>节点属性</title>
+	<style>
+		#box{width: 200px;height: 200px;background: #ff0;color: #f00;}
+	</style>
+</head>
+<body>
+	<div id="box" class="i am" style="font-size:24px">
+		<p>我是你爹回家养猪</p>
+		<ul>
+			<li>previous</li>
+			<li>next</li>
+			<li>attribute</li>
+		</ul>
+	</div>
+	<script>
+		var box = document.getElementById('box');
+		console.log(box.id)
+		console.log(box.className)
+		console.log(box.tagName)
+		console.log(box.nodeName)
+		console.log(box.name)   //表单属性
+		console.log(box.style)
+		console.log(box.innerHTML)
+		console.log(box.outerHTML)
+		console.log(box.innerText)
+		console.log(box.outerText)
+		// 添加自定义属性
+		box.setAttribute('data-name','father');
+		console.log(box.getAttribute('data-name'))
+		//box.removeAttribute('data-name');
+		console.log(box.hasAttribute('data-name'))
+	</script>
+</body>
+</html>

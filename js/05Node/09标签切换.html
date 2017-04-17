@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>标签切换</title>
+	<style>
+		span{width: 50px;height: 20px;background: #ddd;padding: 5px;}
+		img{width: 200px;height: 150px;position: absolute;left: 50px;top: 50px;display: none;}
+		.active{background: #ffa;}
+	</style>
+</head>
+<body>
+	<span>标签1</span>
+	<span>标签2</span>
+	<span>标签3</span>
+	<span>标签4</span>
+	<span>标签5</span>
+	<img src="../img/jpg (1).jpg">
+	<img src="../img/jpg (2).jpg">
+	<img src="../img/jpg (3).jpg">
+	<img src="../img/jpg (4).jpg">
+	<img src="../img/jpg (5).jpg">
+
+	<script>
+		var tab = document.getElementsByTagName('span');
+		var img = document.getElementsByTagName('img');
+		for(var i=0;i<tab.length;i++){
+			tab[i].idx = i;
+			tab[i].onclick = function(){
+				for(var j=0;j<tab.length;j++){
+					tab[j].className = '';
+					img[j].style.display = 'none';
+				}
+				this.className = 'active';
+				img[this.idx].style.display = 'block';
+			}
+		}
+	</script>
+</body>
+</html>

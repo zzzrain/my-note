@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>判断奇偶</title>
+</head>
+<body>
+	<input type="text" name="" id="val"><button id="btn">判断</button>
+	<p id="out"></p>
+	<script type="text/javascript">
+		var val = document.getElementById('val');
+		var btn = document.getElementById('btn');
+		var out = document.getElementById('out');
+		btn.onclick = function(){
+			var _val = val.value;
+			console.log(_val)
+			if(_val%2 == 0){
+				out.innerHTML = "偶数"
+			}else{
+				out.innerHTML = "奇数"
+			}
+		}
+	</script>
+</body>
+</html>

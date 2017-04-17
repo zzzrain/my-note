@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>淡入淡出</title>
+	<style>
+		img{opacity:0.5;}
+	</style>
+	<script>
+		document.addEventListener('DOMContentLoaded',()=>{
+			let img = document.querySelector('img');
+			let opa = getComputedStyle(img).opacity*1;
+			img.onmouseover = ()=>{
+				clearInterval(img.timer)
+				img.timer = setInterval(()=>{
+					opa += 0.05;
+					console.log(opa)
+					if(opa >= 1){
+						clearInterval(img.timer);
+					}
+					img.style.opacity = opa;
+				},100);
+			}
+			
+			img.onmouseout = ()=>{
+				clearInterval(img.timer)
+				img.timer = setInterval(()=>{
+					opa -= 0.05;
+					console.log(opa)
+					if(opa <= 0.5){
+						clearInterval(img.timer);
+					}
+					img.style.opacity = opa;
+				},100);
+			}
+		});
+	</script>
+</head>
+<body>
+	<img src="../img/paprika.jpg" alt="">
+</body>
+</html>

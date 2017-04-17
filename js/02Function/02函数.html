@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>随机函数</title>
+	<style type="text/css"></style>
+</head>
+<body>
+	<script type="text/javascript">
+		/*全局对象*/
+		function global(){
+			return this;
+		}
+		console.log(global())
+
+		/*位数随机*/
+		function count(n){
+			var m = 1;
+			for(var i=0; i<n; i++){
+				m *= 10;
+			}
+			return parseInt(Math.random()*m);
+		}
+		console.log(count(1));
+
+		/*范围随机*/
+		function scope(a,b){
+			var x = a>b ?a :b;
+			var y = a>b ?b :a;
+			return parseInt(Math.random()*(x-y+1))+y;
+		}
+		console.log(scope(0,9))
+
+		/*颜色随机*/
+		/*function color(){
+			var str = '0123456789abcdef';
+			var res = '#';
+			for(var i=0;i<6;i++){
+				var idx = parseInt(Math.random()*16);
+				res += str[idx];
+			}
+			return res;
+		}*/
+		function color(){
+			var res = 'rgba(' + scope(0,255) +','+ scope(0,255) +','+ scope(0,255) +','+ parseInt(Math.random()*10+1)/10 + ')';
+			return res;
+		}
+		console.log(color())
+		document.body.style.background = color();
+
+		/*任意求和*/
+		function sum(){
+			var res = 0;
+			for(var i=0;i<arguments.length;i++){
+				res +=arguments[i];
+			}
+			return res;
+		}
+		console.log(sum(11,12,13))
+
+		/*冒泡排序*/
+		function com(){
+			for(var i=0; i<arguments.length-1;i++){
+				for(var j=0;j<arguments.length-1-i;j++){
+					if(arguments[i]>arguments[i+1]){
+						var tmp = arguments[i];
+						arguments[i] = arguments[i+1];
+						arguments[i+1] = tmp;
+					}
+				}
+			}
+			return arguments;
+		}
+		console.log(com(9,5,7))
+
+		/*编写一个函数，计算任意两个数字之间所能组成的奇数个，数字必须是个位数
+		比如： 计算0-3之间能组成的奇数个是01、21、03、13、23、31*/
+		function odd(x,y){
+			var a = x<y ?x :y;
+			var b = x<y ?y :x;
+			//0、1、2、3 			
+			var val = '';
+			for(var i=a; i<=b; i++){
+				for(var j=a; j<=b; j++){
+					if(i != j){
+						var res = i*10 + j;
+						//console.log(res)
+						if(res%2 != 0){
+							val += res + ',';			
+						}	
+					}		
+				}
+			}
+			return val.slice(0,-1);		
+		}
+		console.log(odd(0,3))				
+	</script>
+</body>
+</html>

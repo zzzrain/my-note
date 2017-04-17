@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>天气预报</title>
+	<style>
+		body{font-family:'微软雅黑';}
+		ul{list-style: none;padding:0;margin:0;}
+		a{text-decoration:none;}
+		#city { overflow-y: auto; }
+		#city h2 { margin: 0; padding: .5em; background: #ccc; color: #fff; }
+		#city ul { padding: 0; margin: 0; }
+		#city ul li { padding: 5px 0; border-top: 1px dotted #ddd; }
+		#city ul li:hover { background: #efefef; }
+		#city ul li > strong { display: inline-block; padding: .5em; color: #26c8ac; }
+		#city a{ display: inline-block; padding: .5em; color: #444; }
+		#city ul a:hover { color: #26c8ac; text-decoration: none; }
+		#city .hotCity a { width: 3.5em; text-align: center; }
+
+		.index{background-color:#efefef;}
+		.index a{width: 5.5em;}
+
+		#weather{border:1px solid #ddd;padding:10px;font-size:12px;}
+		#weather h1 small{display: block;font-size:16px;margin:5px 0;font-weight:normal;color:#c00;}
+		#weather ul{padding:5px;overflow:hidden;}
+		#weather li{float:left;padding:5px;width:143px;height:200px;border-right:1px dotted #ddd;}
+		#weather li.last{border-right:none;float:right;}
+		#weather .date{padding-bottom:10px;margin-bottom:10px;text-align:center;font-weight:bold;border-bottom:1px dotted #ddd;}
+		
+		.type{height:70px;}
+		.qt{background:url(tianqi/1.png) no-repeat center;}
+		.yt{background:url(tianqi/2.png) no-repeat center;}
+		.dy{background:url(tianqi/3.png) no-repeat center;}
+		.wu{background:url(tianqi/4.png) no-repeat center;}		
+		.mai{background:url(tianqi/7.png) no-repeat center;}
+		.zhen{background:url(tianqi/8.png) no-repeat center;}
+		.xiao{background:url(tianqi/9.png) no-repeat center;}
+		.zxyu{background:url(tianqi/10.png) no-repeat center;}
+		.zhong{background:url(tianqi/11.png) no-repeat center;}
+		.dzyu{background:url(tianqi/12.png) no-repeat center;}
+		.da{background:url(tianqi/13.png) no-repeat center;}
+		.yuxue{background:url(tianqi/14.png) no-repeat center;}
+		.leiyu{background:url(tianqi/16.png) no-repeat center;}		
+	</style>
+	<script src="js/common.js"></script>
+	<script>
+	document.addEventListener('DOMContentLoaded',()=>{
+		let val = document.querySelector('input');
+		let weather = document.querySelector('#weather');
+		let hotCity = document.querySelector('.hotCity');
+		let otherCity = document.querySelector('.otherCity');
+		let index = document.querySelector('.index');
+
+		// 默认请求
+		ajax({url:'http://wthrcdn.etouch.cn/weather_mini',
+			data:{city:'广州'},
+			callback:reload
+		});
+
+		// 动态请求
+		val.onblur = e=>{
+			if(val.value) request(val.value);
+		}
+		document.onkeyup = e=>{
+			if(val.value && e.keyCode === 13) request(val.value);
+		}
+
+		// 发送请求函数
+		function request(res){
+			ajax({url:'http://wthrcdn.etouch.cn/weather_mini',
+				data:{city:res},
+				callback:reload
+			});val.value = '';
+		}
+
+		// 页面处理函数
+		function reload(res){
+			console.log(res)
+			weather.innerHTML = '';	
+
+			let city = document.createElement('h1');
+			let tips = document.createElement('small');
+			tips.innerHTML = res.data.ganmao;
+			city.innerHTML = res.data.city+'未来五天天气';
+			city.appendChild(tips);	
+			weather.appendChild(city);					
+
+			let ul = document.createElement('ul');
+			ul.innerHTML = res.data.forecast.map(item=>{
+				let type;
+				switch(item.type){
+					case '晴':type = 'qt';break;
+					case '阴':type = 'yt';break;
+					case '多云':type = 'dy';break;
+					case '雾':type = 'wu';break;
+					// case '晴转多云':type = 'qt';break;
+					// case '阴转多云':type = 'qt';break;
+					case '霾':type = 'mai';break;
+					case '阵雨':type = 'zhen';break;
+					case '小雨':type = 'xiao';break;
+					case '小到中雨':type = 'zxyu';break;
+					case '中雨':type = 'zhong';break;
+					case '中到大雨':type = 'dzyu';break;
+					case '大雨':type = 'da';break;
+					case '雨夹雪':type = 'yuxue';break;
+					// case '雷暴':type = 'qt';break;
+					case '雷阵雨':type = 'leiyu';break;
+				}
+				return `<li>
+					<h3 class="date">${item.date}</h3>
+					<h4 class="type ${type}">${item.type}</h4>
+					<span>${item.fengli}</span>
+					<span>${item.fengxiang}</span>
+					<h4>${item.low}~${item.high}</h4>
+				</li>`;
+			}).join('');			
+			weather.appendChild(ul);			
+		}
+		
+		// 请求城市数据
+		ajax({url:'http://localhost/note/data/region.json',
+			callback: function(res){
+				console.log(res.regions)
+
+				// 热门城市
+				let hot = [];
+
+				// 其他城市 {A:[],B:[],C:[]......}
+				let other = {};
+				let str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+				for(let i=0;i<str.length;i++){
+					other[str[i]] = [];
+				}				
+
+				// 城市分类
+				res.regions.map(item=>{
+					// 判断直辖市、特区的hot&pingyin
+					if(item.municipality || item.special){
+						hot.push(item.name);
+						other[item.pinyin[0]].push(item.name);
+					}else{
+						item.regions.map(item=>{
+							if(item.hot)
+							hot.push(item.name);
+							other[item.pinyin[0]].push(item.name);
+						});
+					}
+				});
+				console.log(hot)
+				console.log(other)
+
+				// 写入热门城市
+				hotCity.innerHTML = hot.map(item=>{
+					return `<a href="#top">${item}</a>`;
+				}).join('');
+
+				// 写入其他城市
+				let ul = document.createElement('ul');				
+				for(let key in other){
+					// 写入首字母
+					if(other[key].length === 0) continue;
+					index.innerHTML += `<a href="#${key}">${key}</a>`;
+
+					let li = document.createElement('li');
+					li.innerHTML = `<strong>${key}</strong>`;
+					li.innerHTML += other[key].map(item=>{
+						return `<a href="#top" id="${key}">${item}</a>`;
+					}).join('');
+					ul.appendChild(li);
+				}				
+				otherCity.appendChild(ul);
+
+				// 点击城市发送请求
+				let city = document.querySelectorAll('#city a');
+				for(let i=0;i<city.length;i++){
+					if(!/[a-z]/i.test(city[i].innerHTML)){
+						city[i].onclick = function(){
+							request(this.innerHTML.replace(/[市州县]?$|[地区]+$/,''));
+						}
+					}
+				}			
+			}
+		});
+	});	
+	</script>
+</head>
+<body>
+	<input type="text" placeholder="请输入城市名">
+	<div id="weather"></div>
+	<div id="city">
+		<h2>热门城市</h2>
+		<div class="hotCity"></div>
+		<h2>其他城市</h2>
+		<div class="index"></div>
+		<div class="otherCity"></div>
+	</div>
+</body>
+</html>

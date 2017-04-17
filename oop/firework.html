@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>烟花</title>
+	<style>
+		html,body{background:#000;height:100%;overflow: hidden;}
+		main{height: 90%;position: relative;border-top:1px solid #fff;}
+		span{display: block;position: relative;width: 100px;
+			background: gold;color: #fff;line-height: 30px;text-align: center;
+			margin: 10px auto;border-radius: 30px;}
+		.fire {width: 3px;background: #fff;position: absolute;top:100%;} 
+		.spark {width: 10px;height: 10px;border-radius: 50%;position: absolute;}
+	</style>
+	
+	<script src="js/common.js"></script>
+	<script>
+		/*
+		烟花:
+			属性：位置
+			方法：移动、爆炸、清除
+		烟灰：
+		    属性：颜色、速度(x,y)
+		    方法：移动、清除
+		飞入阶段：
+			1、绑定事件，获取位置(clientX/clientY)
+			2、创建烟花，给定位置(left/top)
+			3、烟花怎么运动？？？？(animate())！！
+			
+		爆炸阶段：
+			1、烟花移除
+			2、创建烟灰
+			3、烟灰怎么运动？？？？
+		*/
+
+		document.addEventListener('DOMContentLoaded',()=>{
+			function Show(){
+				var show = document.querySelector('main');
+				var auto = document.querySelector('span');
+
+				show.onclick = e=>{
+					new Firework(e.clientX,e.clientY);
+				}
+
+				// 自动播放
+				var idx = 1;
+				auto.onclick = e=>{
+					if(idx){
+						auto.timer = setInterval(function(){
+							var x = scope(100,show.offsetWidth-100);
+							var y = scope(auto.offsetHeight,show.offsetHeight);
+							new Firework(x,y);
+							idx = 0;
+						},2000); 						
+					}else{
+						clearInterval(auto.timer);
+						idx = 1;
+					}				
+				}
+			}
+			new Show();
+
+			// 构造烟花函数
+			function Firework(x,y){
+				this.x= x;
+				this.y= y;
+				this.init();
+			}
+
+			Firework.prototype.init= function(){
+				// 创建一个烟花
+				var fire = document.createElement('div');
+				fire.className ='fire';
+				fire.style.left = this.x +'px';
+				document.body.appendChild(fire);
+
+				this.ele = fire;
+
+				// 执行运动
+				this.move();
+			}
+
+			Firework.prototype.move = function(){
+				animate(this.ele,{top: this.y,height:3},function(){
+					// 执行爆炸
+					this.boom();
+				}.bind(this));
+			}
+
+			Firework.prototype.boom = function(){
+				// 清除操作(接收fire)
+				this.ele.parentNode.removeChild(this.ele);
+				// 爆炸后创建烟灰
+				for(var i=0; i<20; i++){
+					var rad = 18*i*Math.PI/180;
+					new Sparking(this.x,this.y,rad);
+				}
+			}
+
+
+			// 构造烟灰函数
+			function Sparking(x,y,rad){
+				this.x = x;
+				this.y = y;
+
+				// 圆形
+				this.left = parseInt(150*Math.cos(rad))+this.x;
+				this.top = parseInt(150*Math.sin(rad))+this.y;
+
+				// 随机方向
+				// this.left = randomNum(-20,20);
+				// this.top = randomNum(-10,10);	
+
+				console.log(this.left,this.top)	
+				this.init();
+			}
+
+			Sparking.prototype.init = function(){
+				// 创建烟灰
+				var spark = document.createElement('div');
+				spark.className ='spark';
+				spark.style.left = this.x +'px';
+				spark.style.top = this.y +'px';
+				spark.style.background = color();
+				document.body.appendChild(spark);
+
+				// 传递spark
+				this.ele= spark;
+
+				// 执行函数
+				this.move();
+			}
+
+			Sparking.prototype.move = function(){
+										
+				// 随机方向
+				/*var spark = this.ele;
+				spark.timer= setInterval(function(){
+
+					// 抛物线运动的关键	++ 
+					spark.style.left = spark.offsetLeft + this.left +'px';
+					spark.style.top = spark.offsetTop  + this.top++ +'px'; 
+
+					// 判断边界
+					if(spark.offsetLeft < -spark.offsetWidth || spark.offsetLeft > window.innerWidth || spark.offsetTop > window.innerHeight){	
+						this.over();
+						clearInterval(this.timer);
+					}
+				}.bind(this),30);*/
+
+				// 圆形烟花
+				animate(this.ele,{top:this.top,left:this.left,opacity:0},function(){
+					this.over()
+				}.bind(this)); 
+			}
+
+			Sparking.prototype.over = function(){
+				this.ele.parentNode.removeChild(this.ele);
+			}
+		});
+	</script>
+</head>
+<body>
+	<span>自动</span>
+	<main></main>
+</body>
+</html>

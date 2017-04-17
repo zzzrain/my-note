@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>window</title>
+</head>
+<body>
+	<script>		
+		var left = 10;
+		var top  = 5;
+		var win = {name:'zero'};
+		delete left;	
+		delete win.name;
+		console.log(left,top,win)
+	</script>
+</body>
+</html>

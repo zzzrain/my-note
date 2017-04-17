@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自动应答</title>
+	<style>
+		#box,#qaq{float: left;width: 300px;margin: 30px;border:1px solid #ddd;}
+		#qaq p{margin: 10px;}
+		ul,input,button{margin: 0;padding: 0;}
+		ul{list-style: none;min-height: 450px;}
+		li{padding: 5px;min-width:80px;line-height: 30px;
+			text-align: center;clear:both;}
+		li:nth-child(odd){float: left;background: #f3f3f3;}
+		li:nth-child(even){float: right;background: pink;color: #fff;}
+		input{width: 239px;height: 30px}
+		button{width: 49px;height: 36px;}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<input type="text">
+		<button>提交</button>
+	</div>
+	<div id="qaq">
+		<h3>备选问题</h3>		
+	</div>
+	
+	<script>
+		var box = document.getElementById('box');
+		var qaq = document.getElementById('qaq');
+		var put = box.children[0];
+		var btn = box.children[1];
+
+		var que = '可以借钱？,什么时候上课？,作业做完了吗？,这题会吗？,你哪里毕业的？,你有空吗？,约吗？,你爱过我吗？,我难产你保谁？,我和你妈掉进水，你救谁？,你后悔结婚吗？,听过安利吗？,鸽子为什么这么大？,求此刻的心理阴影面积？';
+
+		var ans = '没钱,八号上课,作业没写,这题不会,蓝翔,没空,不约,爱过,保大,救我妈,不后悔,不知道安利,问韩国棒子,此刻的心里阴影面积约9平方厘米。';
+	
+		que = que.split(',');
+		ans = ans.split(',');
+
+		for(var i=0;i<que.length;i++){
+			var p = document.createElement('p');
+			p.innerHTML = que[i];
+			qaq.appendChild(p);
+		}
+
+		var ul = document.createElement('ul');
+		var li = document.createElement('li');
+		li.innerHTML = '欢迎使用智障机器人';			
+		ul.appendChild(li);
+		box.insertBefore(ul,put);
+
+		var idx = 1;
+		btn.onclick = robot;
+		document.onkeyup  = function(e){
+			if(e.keyCode === 13){robot();}
+		}
+		function robot(){
+			var msg = put.value;
+			if(msg != '' && idx){
+				// 发送消息
+				var li = document.createElement('li');	
+				li.innerHTML = msg;		
+				ul.appendChild(li);
+				idx = 0;
+				// 处理消息
+				for(var i=0;i<que.length;i++){
+					var num = que[i].indexOf(msg);
+					if(num >= 0){
+						var res = ans[i];	
+						break;				
+					}else{
+						var res = ans;						
+					}
+				}
+				// 延时回复
+				setTimeout(function(){
+					var li = document.createElement('li');						
+					li.innerHTML = res;
+					ul.appendChild(li);
+					put.value = '';
+					put.focus();
+					idx = 1;
+				},1000);			
+			}
+		}
+		put.focus();	
+	</script>
+</body>
+</html>

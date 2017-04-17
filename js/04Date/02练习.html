@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>练习</title>
+	<style>
+		#tiao{width: 0;height: 50px;background: #ff0;}
+	</style>
+</head>
+<body>
+	<p id="tiao"></p>
+	<p id="miao"></p>
+	<script>
+		// 秒杀	
+		var miao = document.getElementById('miao');	
+		var now = new Date('2017/3/1');			
+		var buy_ = setInterval(buy,1000);
+		function buy(){
+			var cur = new Date();			
+			var set = now.getTime() - cur.getTime();
+			var sec = parseInt(set/1000%60);
+			var min = parseInt(set/60000%60);
+			var hou = parseInt(set/3600000%24);
+			var day = parseInt(set/3600000/24);
+			//console.log(day,hou,min,sec)
+			miao.innerHTML = '还有' + day + '天' + hou + '时'
+			+ min + '分' + sec + '秒';
+		}
+		buy();		
+
+		// 进度条
+		var tiao = document.getElementById('tiao');
+		var num = 0;
+		var bar_ = setInterval(bar,50);	
+		function bar(){
+			num++;		
+			tiao.style.width = num +'%';
+			if(num === 50){
+				clearInterval(bar_);
+			}	
+		}
+		
+		// 计算n天后的日期
+		function after(date,n){
+			var day = new Date(date);
+			day.setDate(day.getDate()+n);
+			return day.toLocaleDateString();		
+		}
+		console.log(after('2017/2/22',10))
+	</script>
+</body>
+</html>

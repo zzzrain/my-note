@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>判断日期</title>
+</head>
+<body>
+	<input type="text" placeholder="请填写年" id="x">
+	<input type="text" placeholder="请填写月" id="y">
+	<input type="text" placeholder="请填写日" id="z">
+	<button onclick="test()">判断</button>
+	<span id="out"></span>
+	<script type="text/javascript">
+		function test(){
+			var x = document.getElementById('x').value;		
+			var y = document.getElementById('y').value;		
+			var z = document.getElementById('z').value;									
+			
+			var res = day(x,y,z) ?'合法日期' :'什么鬼啊';
+			var out = document.getElementById('out');
+						
+			out.innerHTML = res;
+			
+			function year(n){
+				if(n%4 == 0 && n%100 != 0  || n%400 == 0){
+					return true;
+				}else{
+					return false;
+				}
+			}
+			function day(x,y,z){
+				console.log(x,y,z)
+				if(y<1 || y>12 ){
+					return false;
+				}
+
+				var d = 31;
+				/*if(y == 1 || y==3 || y==5 || y==7 y == 8 || y==10 || y==12){
+					d = 31
+				}*/
+				if(y == 4 || y==6 || y==9 || y==11){
+					d = 30;
+				}else if(y == 2){
+					if(year(x)){
+						d = 29;
+					}else{
+						d = 28;
+					}				
+				}else{
+					return true;
+				}	
+
+				if(z>d){
+					return false;
+				}
+
+				return true;
+			}
+			/*var res = day(2017,2,14);
+			console.log(res ?'合法日期' :'不合法')*/
+		}				
+	</script>
+</body>
+</html>

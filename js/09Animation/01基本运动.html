@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>登噔蹬瞪</title>
+	<style>
+		body{overflow: hidden;}
+		img{width: 100px;height: 100px;position: absolute;}
+	</style>
+	<script>
+		document.addEventListener('DOMContentLoaded',()=>{
+			let hd = document.querySelector('img');
+			// 定时器、初速度
+			let timer;
+			let speed = 20;				
+			hd.onclick = function(){
+				clearInterval(timer);
+				timer = setInterval(()=>{					
+					//减速运动
+					//speed = (window.innerWidth - hd.offsetLeft)/20;	
+					console.log(hd.offsetLeft,speed)				
+					if(hd.offsetLeft >= window.innerWidth - hd.offsetWidth){
+						clearInterval(timer);											
+					}else{	
+						hd.style.left = hd.offsetLeft + speed + 'px';
+					}
+					//加速运动					
+					//speed++;										
+				},30);
+			}						 
+		});
+	</script>
+</head>
+<body>
+	<img src="../img/firerice.gif" alt="">
+</body>
+</html>
