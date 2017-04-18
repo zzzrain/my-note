@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app='demo'>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<a href="#!/head">首页</a>
+		<a href="#!/main">内容</a>
+		<a href="#!/foot">尾部</a>
+		<div ng-view=''></div>
+	</body>
+	<script src='js/angular.js'></script>
+	<script src='js/angular-route.js'></script>
+	<script>
+		angular.module('demo',['ngRoute'])
+		.config(function($routeProvider){
+			$routeProvider
+			.when('/head',{
+				templateUrl:'html/head.html',
+				controller:'head',
+			})
+			.when('/main',{
+				templateUrl:'html/main.html',
+				controller:'main',
+			})
+			.when('/foot',{
+				templateUrl:'html/foot.html',
+				controller:'foot',
+			})
+			// 默认内容
+			.otherwise({redirectTo:'/main'})
+		})
+		.controller('head',function($scope){
+			$scope.title = '欢迎来到UC震惊部'
+		})
+		.controller('main',function($scope){
+			$scope.title = '惊！一名男子吃饭吃到怀疑人生'
+		})
+		.controller('foot',function($scope){
+			$scope.title = '惊！大学生卖竹鼠竟可一夜暴富'
+		})
+		.directive('zujian',function(){
+			return {
+				template:'这是一个组件'
+			}
+		})
+	</script>
+</html>

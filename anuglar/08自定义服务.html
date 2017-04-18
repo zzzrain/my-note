@@ -12,10 +12,11 @@
 	<script src="js/angular.js"></script>
 	<script>
 		var app = angular.module("demo", []);
-		app.controller("indexCtrl", function($scope,tool1,tool2) {
+		app.controller("indexCtrl", function($scope,tool1,tool2,test) {
 			console.log(tool1.sum(3,7))
 			console.log(tool2.sum(3,7))
 			console.log(tool2.mul(3,7))
+			console.log(test(6,9))
 		})
 		app.service("tool1",function(){
 			return {
@@ -30,6 +31,11 @@
 				mul:function(a,b){
 					return a*b
 				}
+			}
+		})
+		app.service('test',function(){
+			return function(a,b){
+				return a+b
 			}
 		})
 	</script>
