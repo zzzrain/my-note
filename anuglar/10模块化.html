@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app='demo'>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div ng-controller='head'>
+			<p>{{name}}</p>
+			<zujian></zujian>
+		</div>
+	</body>
+	<script src="js/angular.js"></script>
+	<script>
+	    angular.module('demo',['a','b','c','d']);
+		(function(){
+			angular.module('a',[])
+			.controller('head',function($scope){
+				$scope.name = '瓜皮呆呆'
+			})
+		})();
+		(function(){
+			angular.module('b',[])
+			.directive('zujian',function(){
+				return {
+					template:'<p>这是一个组件</p>'
+				}
+			})
+		})();
+		(function(){
+			angular.module('c',[])
+			.filter('filt',function(){
+				
+			})
+		})();
+		(function(){
+			angular.module('d',[])
+			.service('http',function(){
+				
+			})
+		})();
+	</script>
+</html>
