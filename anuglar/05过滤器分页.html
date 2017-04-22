@@ -30,12 +30,12 @@
 			$scope.page = 0;
 			$scope.prev = function(){
 				$scope.page -= 2;
-				if($scope.page<0)
+				if($scope.page < 0)
 				$scope.page = $scope.arr.length-2;
 			}
 			$scope.next = function(){
 				$scope.page += 2;
-				if($scope.page === $scope.arr.length)
+				if($scope.page >= $scope.arr.length)
 				$scope.page = 0;
 			}
 			$scope.skin = function(){
