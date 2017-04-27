@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<link rel="stylesheet" href="css/bootstrap.css" />
+	<body>
+		<div ng-controller="indexCtrl">
+			<select class="form-control input-lg" ng-model="channel">
+				<option value="6">推荐</option>
+				<option value="4">军事</option>
+				<option value="7">热点</option>
+				<option value="8">娱乐</option>
+			</select>
+			<input class="form-control" ng-model="title" placeholder="标题" />
+			<input  class="form-control" ng-model="content" placeholder="内容" />
+			<button class="btn btn-default" ng-click="add()">增加新闻</button>
+			<button class="btn btn-default" ng-click="select()">查询新闻</button>
+			<table class="table table-bordered">
+				<tr>
+					<th>id</th>
+					<th>标题</th>
+					<th>内容</th>
+					<th>删除</th>
+					<th>修改</th>
+				</tr>
+				<tr ng-repeat="key in news">
+					<th>{{key.id}}</th>
+					<th>{{key.title}}</th>
+					<th>{{key.content}}</th>
+					<th><input class="btn btn-default" ng-click="delete(key.id)" type="button" value="删除"></th>
+					<th><input class="btn btn-default" ng-click="edit(key.id)" type="button" value="修改"></th>
+				</tr>
+			</table>
+		</div>
+	</body>
+	<script src="js/angular.js"></script>
+	<script>
+		var app = angular.module("demo",[]);
+		app.controller("indexCtrl",function($scope,$http, $window){
+			$scope.channel = "6";
+			//增加
+			$scope.add = function(){
+				$http({
+					url:"http://localhost:10086/add",
+					params:{
+						title:$scope.title,
+						content:$scope.content,
+						channel:$scope.channel,
+					}
+				}).then(function(data){
+					console.log(data)
+					$scope.news = data.data.text
+				})
+			}
+			//查询
+			$scope.select = function(){
+				$http({
+					url:"http://localhost:10086/select",
+				}).then(function(data){
+					console.log(data)
+					$scope.news = data.data.text
+				})
+			}
+			$scope.select();
+			//删除
+			$scope.delete = function(id){
+				console.log(id)
+				$http({
+					url:"http://localhost:10086/delete",
+					params:{
+						id: id
+					}
+				}).then(function(data){
+					console.log(data)
+					$scope.news = data.data.text
+				})
+			}
+			//修改
+			$scope.edit = function(id){
+				$window.location.href = "server-edit.html#!/?id=" + id;
+			}
+		})
+		angular.bootstrap(document,["demo"])
+	</script>
+</html>

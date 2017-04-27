@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="text" id="title" placeholder="标题"/>
+		<input type="text" id="content" placeholder="内容"/>
+		<button>提交</button>
+	</body>
+	<script src="js/jquery.js"></script>
+	<script>
+		$('button').click(function(){
+			$.ajax({
+				type:'post',
+				url:'http://localhost:10000/add',
+				data:{
+					title: $('#title').val(),
+					content: $('#content').val(),
+				}
+			})
+		})
+	</script>
+</html>
