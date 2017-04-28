@@ -3,6 +3,7 @@ var mysql = require('mysql');
 var express = require('express');
 var bodyParser = require('body-parser');
 
+// 连接数据库
 var connect = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
@@ -11,22 +12,21 @@ var connect = mysql.createConnection({
 })
 connect.connect();
 
+// 实例化exp
 var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
-
-//app.set("views",'./views');
-//app.set("viwe engine","jade");
 
 app.get('/',function(req,res){
 	res.send('welcome')
 })
 app.get('/add',function(req,res){
 	res.send('增加信息')
-	console.log(req.query)
 })
 
 app.post('/add',function(req,res){
+	// 插入请求头
 	res.append('Access-Control-Allow-Origin', '*');
+	
 	console.log(req.body)
 	connect.query("insert into news (title,content) values ('" + req.body.title + "','" + req.body.content + "')")
 })

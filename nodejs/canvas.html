@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			canvas {
+				background: pink;
+			}
+			input{
+				outline: none;
+				border: 2px solid #ff0;
+				padding: 0 5px;
+				height: 26px;
+				float: left;
+			}	
+			span{
+				display: inline-block;
+				width: 100px;
+				height: 30px;
+				text-align: center;
+				line-height: 26px;
+				border: 2px solid #ff0;
+				box-sizing: border-box;
+				background: #f0f;
+				color: #ff0;
+				float: left;
+			}	
+			p{overflow: hidden;}	
+		</style>
+	</head>
+
+	<body>
+		<canvas id="canvas" width="600" height="300"></canvas>
+		<p>
+			<input type="text" id="draw"/>
+			<span id="question">出题</span>
+			<span id="clear">清空</span>
+		</p>
+		<canvas id="canvas2" width="600" height="300"></canvas>
+		<p>
+			<input type="text" id="guess"/>
+			<span id="answer">答题</span>
+		</p>
+	</body>
+	<script src="js/socket.js"></script>
+	<script>
+		var socket = io('http://localhost:10086/')
+		var canvas = document.querySelector('#canvas')
+		var ct = canvas.getContext('2d')
+		
+		// 出题
+		var draw = document.querySelector('#draw')
+		var que = document.querySelector('#question')
+		que.onclick = function() {
+			socket.emit('que', draw.value)
+		}
+		
+		// 清空
+		var del = document.querySelector('#clear')
+		del.onclick = function() {
+			ct.clearRect(0, 0, canvas.width, canvas.height);
+			socket.emit('clear', 'clear')
+		}
+		
+		// 画布发送坐标
+		var path = {startX: 0,startY: 0,endX: 0,endY: 0}
+		canvas.onmousedown = function(e) {
+			// 重置画布
+			ct.beginPath();
+			ct.moveTo(e.clientX, e.clientY)
+			path.startX = e.clientX;
+			path.startY = e.clientY;
+			canvas.onmousemove = function(e) {
+				ct.lineTo(e.clientX, e.clientY)
+				ct.stroke()
+				path.endX = e.clientX;
+				path.endY = e.clientY;
+				socket.emit('path', path)
+			}
+		}
+		canvas.onmouseup = function() {
+			canvas.onmousemove = null;
+			socket.emit('stop', 'stop')
+		}
+		
+		// 接收画布信息
+		var canvas2 = document.querySelector('#canvas2')
+		var ct2 = canvas2.getContext('2d')
+		var idx = 1;
+		socket.on('res', function(data) {
+			// 同步画布
+			if (idx) {
+				ct2.beginPath();
+				ct2.moveTo(data.startX, data.startY);
+				idx = 0;
+			}
+			// 停笔重置
+			if (data == 'stop') idx = 1;
+			
+			ct2.lineTo(data.endX, data.endY);
+			ct2.stroke();
+			
+			// 同步清空			
+			if (data == 'clear')
+			ct2.clearRect(0, 0, canvas2.width, canvas2.height);
+			
+			// 判断答案
+			if(data == 'correct') alert('恭喜你答对了')
+		})
+		
+		// 答题
+		var guess = document.querySelector('#guess')
+		var ans = document.querySelector('#answer')
+		ans.onclick = function() {
+			socket.emit('ans', guess.value);
+		}
+	</script>
+
+</html>

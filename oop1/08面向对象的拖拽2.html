@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>面向对象的拖拽</title>
+	<style>
+		#box{position: absolute;top:0;left:0;width:100px;height:100px;background-color: #f00;}
+	</style>
+	<script>
+	window.onload= function(){
+
+			// 创建对象
+			function Drag(id){
+				this.id= id;
+				this.init();
+			}
+
+			// 初始化
+			Drag.prototype.init = function(){
+				var div = document.createElement('div');
+				div.id = this.id;
+				document.body.appendChild(div);				
+				// 传递属性
+				this.ele = div;
+
+				var that= this;
+				div.onmousedown = function(e){
+					e.preventDefault();
+					var startX = e.offsetX;
+					var startY = e.offsetY;
+
+					document.onmousemove = function(e){
+						e.preventDefault();
+						that.move(e.clientX - startX,e.clientY - startY);
+					}
+				}
+				document.onmouseup = function(){
+					that.stop();
+				}
+			}
+
+			Drag.prototype.move = function(x,y){
+				this.ele.style.left = x + 'px';
+				this.ele.style.top  = y + 'px';
+			}
+
+			Drag.prototype.stop = function(){
+				document.onmousemove = null;
+			}
+
+			var obj= new Drag('box');
+			
+	}	
+	</script>
+</head>
+<body>
+	<!-- <div id="box"></div> -->
+</body>
+</html>

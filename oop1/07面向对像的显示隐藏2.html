@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>面对像的显示隐藏效果</title>
+	<style>
+		#box,#box2{height:80px;padding:10px;background-color: #efefef;border:2px solid #ccc;}
+	</style>
+	<script>
+	window.onload = function(){
+
+		// 创建自定义构造函数
+		function DisplayBox(id,content,visibility){
+			// 描述属性
+			this.id = id;
+			this.text = content;
+			this.visibility = visibility;
+			this.init();			
+		}
+
+		DisplayBox.prototype.init = function(){
+			// 生成html结构
+			var div = document.createElement('div');
+			var btn = document.createElement('button');
+			div.id = this.id;
+			div.innerHTML = this.text;
+			btn.innerHTML = '隐藏';
+			document.body.appendChild(div);
+			document.body.appendChild(btn);
+
+			// 利用this传递属性				
+			this.ele = div;
+
+			// 绑定事件
+			var self = this;
+			btn.onclick = function(){
+				if(self.visibility){
+					self.hide();
+				}else{
+					self.show();
+				}
+			}	
+		}
+
+		DisplayBox.prototype.show = function(){
+			this.ele.style.display = 'block';
+			this.visibility = true;
+			this.ele.nextElementSibling.innerHTML = '隐藏';
+		}
+		
+		DisplayBox.prototype.hide = function(){
+			this.ele.style.display = 'none';
+			this.visibility = false;
+			this.ele.nextElementSibling.innerHTML = '显示';
+		}
+
+		var d1= new DisplayBox('box','内容1',true);
+		// d1.init();
+
+		var d2= new DisplayBox('box2','内容2',true);
+		// d2.init();
+	}	
+	</script>
+</head>
+<body>
+	<!-- <div id="box">轻轻的我来了，轻轻的我右走了</div>
+	<button>显示隐藏</button> -->
+</body>
+</html>

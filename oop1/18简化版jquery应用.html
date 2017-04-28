@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>简化版jquery应用</title>
+	<script src="js/common.js"></script>
+	<script>
+		// 类库
+		// leiku => neiku
+		window.onload = function(){
+			var e = new Element('h1');
+
+			console.log(e);
+			//init(): e.ele = h1
+
+			// 赋值：
+			// e.css('color','red').css('border','1px solid #ddd').css('background','#f60');
+			e.css({color:'#fff',border:'1px solid #ddd',background:'#f60'});
+			// e.ele.style['color'] = 'red';
+
+
+			// 取值：获取颜色
+			console.log(e.css('color'));
+
+			e.bind('click',function(){
+				alert(6666);
+				// e.css('background','red');
+			});
+
+
+			// new Element('h1').css('color','red').bind('click',function(){
+			// 	alert(666);
+			// });
+
+			// $('h1').css('font-size','60px').bind('click',function(){
+			// 	alert(999);
+			// });
+
+		}
+	</script>
+</head>
+<body>
+	<h1>简化版jquery应用</h1>
+</body>
+</html>
