@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body id="demo">
+		<p>{{input}}</p>
+		<p><input type="text" v-model='input'/></p>
+		<p>单选框：{{radio}}</p>
+		<p>
+			<input type="radio" value="1" v-model='radio'/>
+			<input type="radio" value="2" v-model='radio'/>
+			<input type="radio" value="3" v-model='radio'/>
+		</p>
+		<p>复选框：{{boxArr}}</p>
+		<p>
+			<input type="checkbox" value="a" v-model='boxArr'/>
+			<input type="checkbox" value="b" v-model='boxArr'/>
+			<input type="checkbox" value="c" v-model='boxArr'/>
+		</p>
+	</body>
+	<script src="js/vue.js"></script>
+	<script>
+		new Vue({
+			el:'#demo',
+			data:{
+				input:'默认显示',
+				boxArr:[],
+			},
+			methods:{},
+		})
+	</script>
+</html>

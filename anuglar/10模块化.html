@@ -5,7 +5,7 @@
 		<title></title>
 	</head>
 	<body>
-		<div ng-controller='head'>
+		<div ng-controller='indeCtrl'>
 			<p>{{name}}</p>
 			<zujian></zujian>
 		</div>
@@ -15,7 +15,7 @@
 	    angular.module('demo',['a','b','c','d']);
 		(function(){
 			angular.module('a',[])
-			.controller('head',function($scope){
+			.controller('indeCtrl',function($scope){
 				$scope.name = '瓜皮呆呆'
 			})
 		})();
@@ -29,13 +29,13 @@
 		})();
 		(function(){
 			angular.module('c',[])
-			.filter('filt',function(){
+			.filter('',function(){
 				
 			})
 		})();
 		(function(){
 			angular.module('d',[])
-			.service('http',function(){
+			.service('',function(){
 				
 			})
 		})();

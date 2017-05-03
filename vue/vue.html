@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body id="demo">
+		<p>{{name}}</p>
+		<p>三目运算：{{bool ? '真的' : '假的'}}</p>
+		<p>对象属性：{{obj.skill}}</p>
+		
+		<p v-html='html'></p>
+		<p v-text='text' v-bind:style='{color:color,fontSize: size+"px"}'></p>
+		<select v-model='color'>
+			<option value="red">红色</option>
+			<option value="blue">蓝色</option>
+			<option value="yellow">黄色</option>
+		</select>
+		
+		<p><input type="range" v-model='size'/></p>
+		<p>字体大小：{{size}}</p>
+		<p>
+			if else用法：
+			<span v-if='size>30'>真的</span>
+			<span v-else>假的</span>
+		</p>
+		
+		<p>v-for：</p>
+		<ul>
+			<li v-for='key in arr'>我是{{key.name}},我爱吃{{key.chi}}</li>
+		</ul>
+		
+		<p>v-on 简写@</p>
+		<button @click='click'>点击</button>
+		<p>v-bind 简写:</p>
+		<p><img :src='src' alt="" /></p>
+	</body>
+	<script src="js/vue.js"></script>
+	<script>
+		new Vue({
+			el:'#demo',
+			data:{
+				name:'vue',
+				bool:true,
+				obj:{skill:'kill'},
+				html:'<p>html<span>结构</span></p>',
+				text:'文字颜色',
+				color:'red',
+				size:'16',
+				arr:[
+					{name:'银桑',chi:'红豆饭'},
+					{name:'十四',chi:'蛋黄酱'},
+					{name:'神乐',chi:'醋海带'},
+				],
+				src:'img/star (9).jpg',
+			},
+			methods:{
+				click:function(){
+					alert('点击事件')
+				}
+			},
+		})
+	</script>
+</html>

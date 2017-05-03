@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body id="demo">
+		{{name}}
+		<button @click='greet'>大屁股</button>
+	</body>
+	<script src="js/vue.js"></script>
+	<script>
+		new Vue({
+			el:'#demo',
+			data:{
+				first:'James',
+				last:'Harden',
+			},
+			methods:{
+				greet:function(event){
+					alert(event.target.tagName)
+				}
+			},
+			computed:{
+				name:function(){
+					console.log(this)
+					return this.first +'·'+ this.last
+				}
+			},
+		})
+	</script>
+</html>
