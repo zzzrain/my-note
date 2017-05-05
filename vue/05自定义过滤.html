@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body id="demo">
+		<p><input type="text" v-model='word'/></p>
+		<p v-html='html|light word'></p>
+	</body>
+	<script src="js/vue.js"></script>
+	<script src="js/jquery.js"></script>
+	<script>
+		/*Vue.filter('light',function(res,val){
+			var reg = new RegExp(val,'g')
+			output = res.replace(reg,`<span style='color:red'>${val}</span>`)
+			if(val) return output
+			else return res
+		})*/
+		new Vue({
+			el: '#demo',
+			data: {
+				html:'我是神乐, 今年16, 大爱醋海带,我是月月, 今年26, 大爱大烟枪,我是袁飞, 今年26, 大爱红豆饭,我是银桑, 今年28, 大爱红豆饭,我是十四, 今年28, 大爱蛋黄酱,我是猩猩, 今年37, 大爱蛋黄酱,',
+			},
+			filters:{
+				light:function(res,val){
+					var reg = new RegExp(val,'g')
+					output = res.replace(reg,`<span style='color:red'>${val}</span>`)
+					if(val) return output
+					else return res	
+				}
+			},
+		})
+	</script>
+</html>

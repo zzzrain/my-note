@@ -31,9 +31,10 @@
 		</ul>
 		
 		<p>v-on 简写@</p>
-		<button @click='click'>点击</button>
+		<button @click='bool=!bool'>显示隐藏</button>
 		<p>v-bind 简写:</p>
-		<p><img :src='src' alt="" /></p>
+		<p><img :src='src' alt="" v-show='bool'/></p>
+		
 	</body>
 	<script src="js/vue.js"></script>
 	<script>
@@ -42,7 +43,7 @@
 			data:{
 				name:'vue',
 				bool:true,
-				obj:{skill:'kill'},
+				obj:{skill:'反向大招'},
 				html:'<p>html<span>结构</span></p>',
 				text:'文字颜色',
 				color:'red',
@@ -54,11 +55,11 @@
 				],
 				src:'img/star (9).jpg',
 			},
-			methods:{
+			/*methods:{
 				click:function(){
-					alert('点击事件')
+					this.bool = !this.bool
 				}
-			},
+			},*/
 		})
 	</script>
 </html>

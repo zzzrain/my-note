@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body id="demo">
+		<input type="text" v-model='ask'/>
+		<button @click='ajax'>提问</button>
+		<p>{{ans}}</p>
+	</body>
+	<script src="js/vue.js"></script>
+	<script src="js/jquery.js"></script>
+	<script>
+		new Vue({
+			el:'#demo',
+			data:{
+				ask:'',
+				ans:'',
+			},
+			methods:{
+				/*ajax:function(){
+					var xhr = new XMLHttpRequest()
+					xhr.open('GET','http://www.tuling123.com/openapi/api?key=c75ba576f50ddaa5fd2a87615d144ecf&info='+this.ask,true)
+					xhr.send()
+					xhr.onreadystatechange = function(){
+						if(xhr.readyState === 4 && xhr.status === 200){
+							this.ans = JSON.parse(xhr.responseText).text
+						}
+					}.bind(this)
+				}*/
+				ajax:function(){
+					$.get('http://www.tuling123.com/openapi/api?key=c75ba576f50ddaa5fd2a87615d144ecf&info='+this.ask,function(res){
+						this.ans = res.text
+					}.bind(this))
+				},
+			},
+			// 自执行一次
+			ready:function(){
+				$('input').focus()
+			}
+		})
+	</script>
+</html>

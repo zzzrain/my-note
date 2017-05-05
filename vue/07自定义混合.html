@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div id="demo1" style='border:1px solid plum'>
+			<p>{{name}}</p> 
+			<p><button @click='click'>服务一</button></p> 
+		</div>
+		<div id="demo2" style='border:1px solid grey'>
+			<p>{{name}}</p> 
+			<p><button @click='click'>服务二</button></p> 
+		</div>
+	</body>
+	<script src="js/vue.js"></script>
+	<script src="js/jquery.js"></script>
+	<script>
+		(function() {
+			// 定义混合
+			var mix = {
+				methods:{
+					click:function(){
+						console.log('这是混合')
+					}
+				}
+			}
+			var yao = {
+				data:{
+					name:'yao'
+				}
+			}
+			
+			new Vue({
+				el: "#demo1",
+				// 引入混合,不会覆盖原来的数据
+				mixins:[mix,yao],
+				
+				data: {
+					name: 'xie',
+				},
+				methods: {
+					click:function(){
+						console.log('不会覆盖')
+					}
+				},
+			})
+
+			new Vue({
+				el: "#demo2",
+				mixins:[mix,yao],
+			})
+		})()
+	</script>
+</html>

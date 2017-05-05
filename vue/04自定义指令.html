@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body id="demo">
+		<p v-lbj='gold'>{{name}}</p>
+		<p v-part>{{food}}</p>
+	</body>
+	<script src="js/vue.js"></script>
+	<script src="js/jquery.js"></script>
+	<script>
+		// 全局指令 必须放在开头
+		Vue.directive('lbj', {
+			bind: function() {
+				// vm == scope
+				// el == ele
+				// expression == attr
+				this.vm.name = 'LeBron James'
+				this.el.style.color = this.expression
+			}
+		})
+		new Vue({
+			el: '#demo',
+			data: {},
+			// 局部指令
+			directives:{
+				part:{
+					bind:function(){
+						this.vm.food = 'banana'
+						$(this.el).css({'color':'red','fontSize':'24px'})
+					}
+				}
+			}
+		})
+	</script>
+</html>

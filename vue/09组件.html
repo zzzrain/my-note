@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body id="demo">
+		<p>{{name}}</p>
+		<xhead style='border: 1px solid plum'></xhead>
+		<xmain style='border: 1px solid plum'></xmain>
+		<xfoot :msg='name'></xfoot>
+	</body>
+	<script src="js/vue.js"></script>
+	
+	<!--第一种写法-->
+	<!--<script type="text/template" id="template">
+		<p>第一个组件</p>
+	</script>-->
+	
+	<!--第二种写法-->
+	<template id="template">
+		<p>第一个组件：普通写法</p>
+	</template>
+	
+	<script>
+		// 简化版（全局作用）
+		Vue.component('xfoot',{
+			// 数据接收
+			props:['msg'],
+			// 不能使用templateUrl
+			template:`
+				<div style='border: 1px solid plum'>
+					<p>{{name}}</p>
+					<button @click='test'>测试按钮</button>
+				</div>
+			`,
+			methods:{
+				test(){
+					console.log('success')
+				}
+			},
+			
+			// new Vue 里面的所有东西都可以放
+			// data 写法不同	 ==>  data:function(){},
+			data(){
+				return {name:'第三个组件：简化版写法'}
+			},
+			ready(){
+				console.log(this.msg)
+			},
+		})
+		
+		// 定义	只能放template？？？
+		var first = Vue.extend({
+			// 引入结构
+			template:"#template",
+		})
+		// 注册（全局作用） 
+		Vue.component('xhead',first)
+		
+		new Vue({
+			el:'#demo',
+			data:{
+				name:'数据传递'
+			},
+			// 局部作用
+			components:{
+				xmain:{
+					template:'<p>第二个组件：嵌套写法</p>',
+				}
+			}
+		})
+		
+	</script>
+</html>
