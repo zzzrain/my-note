@@ -1,12 +1,10 @@
 // 引入安装的模块  jquery、vue、vuerouter。。。
 
-// commonjs写法  require引入  exports输出
+// commonjs(es5)写法  require引入  exports输出
 // var $ = require("jquery")
 
 // 以下都是es6写法
 import $ from "jquery"
-
-// 全局应用
 window.$ = $
 
 import Vue from "vue"

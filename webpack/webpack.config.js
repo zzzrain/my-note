@@ -1,3 +1,4 @@
+var webpack = require('webpack')
 module.exports = {
 	//入口文件
 	entry: __dirname + "/main.js",
@@ -18,6 +19,7 @@ module.exports = {
 			test: /\.js$/ ,
 			loader: "babel-loader"
 		},{
+			// vue-loader、vue-template-compiler
 			test: /\.vue$/ ,
 			loader: "vue-loader"
 		},{
@@ -31,4 +33,8 @@ module.exports = {
 		// 监听
 		inline: true
 	}
+	// 代码压缩
+	plugins: [
+		//new webpack.optimize.UglifyJsPlugin()
+	]
 }
