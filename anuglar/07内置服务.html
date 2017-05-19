@@ -13,17 +13,17 @@
 			<button ng-click='post()'>post</button>
 		</div>
 	</body>
-	<script src="js/angular-1.5.9.js"></script>
+	<script src="js/angular.js"></script>
 	<script src="js/ngPost.js"></script>
 	<script>
 		var app = angular.module("demo", ['MyModule']);
 		app.controller("indexCtrl", function($scope,$http,$rootScope) {
-			// 全局范围	
+			// 全局范围	容易造成冲突，慎用！！！	
 			$rootScope.root = "请求类型";
 			
 			$scope.jsonp = function(){
 				$http({
-					url:"php/get.php",
+					url:"php/jsonp.php",
 					method:'JSONP',
 					params:{
 						input:$scope.skill
@@ -45,6 +45,7 @@
 				})
 			}
 			
+			// 1.6以下版本使用
 			$scope.post = function(){
 				$http.post("php/post.php",{input:$scope.skill}).success(function(res){
 					console.log(res)

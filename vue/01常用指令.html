@@ -21,8 +21,8 @@
 		<p>字体大小：{{size}}</p>
 		<p>
 			if else用法：
-			<span v-if='size>30'>真的</span>
-			<span v-else>假的</span>
+			<span v-if='size>30'>字体大于30</span>
+			<span v-else>字体小于30</span>
 		</p>
 		
 		<p>v-for：</p>
@@ -30,9 +30,9 @@
 			<li v-for='key in arr'>我是{{key.name}},我爱吃{{key.chi}}</li>
 		</ul>
 		
-		<p>v-on 简写@</p>
+		<p>v-on 简写 @</p>
 		<button @click='bool=!bool'>显示隐藏</button>
-		<p>v-bind 简写:</p>
+		<p>v-bind 简写 :</p>
 		<p><img :src='src' alt="" v-show='bool'/></p>
 		
 	</body>

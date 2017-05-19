@@ -1,4 +1,4 @@
-﻿1、下载requirejs文件，src引入script
+﻿1、引入requirejs
 2、配置config.js，data-main引入script
 3、requirejs.config({baseUrl:,paths:,shim:})
 baseUrl：设置根目录

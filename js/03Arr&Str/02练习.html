@@ -33,21 +33,9 @@
 		console.log(has([10,20,30]))
 
 		//编写一个norepeat(arr)去重函数，去掉数组中的重复项，并返回一个新的数组
-		//关键：新数组每次都要遍历，遍历完后才添加，相同的跳过而不是中断
 		function norepeat(arr){
-			var res = [arr[0]];
-			cir:for(var i=1; i<arr.length;i++){
-				for(var j=0; j<res.length;j++){
-					if(arr[i] === res[j]){
-						console.log('数字重复')
-						continue cir;		
-					}			
-				}
-				res.push(arr[i]);		
-			}
-			return res;	
-		}
-		
+			
+		}	
 		console.log(norepeat([10,20,30,20,40,20,30]))
 
 	</script>

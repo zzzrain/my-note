@@ -19,12 +19,12 @@ module.exports = {
 			test: /\.js$/ ,
 			loader: "babel-loader"
 		},{
+			test: /\.css$/ ,
+			loader: "css-loader"
+		},{
 			// vue-loader、vue-template-compiler
 			test: /\.vue$/ ,
 			loader: "vue-loader"
-		},{
-			test: /\.css$/ ,
-			loader: "css-loader"
 		}]
 	},
 	// 服务器
@@ -32,7 +32,7 @@ module.exports = {
 		contentBase: "./src",
 		// 监听
 		inline: true
-	}
+	},
 	// 代码压缩
 	plugins: [
 		//new webpack.optimize.UglifyJsPlugin()

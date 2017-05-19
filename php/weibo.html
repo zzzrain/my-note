@@ -18,7 +18,7 @@
 		document.addEventListener('DOMContentLoaded',()=>{
 			let xhr = new XMLHttpRequest();
 			
-			xhr.open('get','http://localhost/note/weibo.php',true);
+			xhr.open('get','weibo.php',true);
 			xhr.send();
 			xhr.onreadystatechange = ()=>{
 				if(xhr.readyState === 4 && xhr.status === 200){
@@ -44,7 +44,7 @@
 					// 声明目标父级的标识
 					let guid = e.target.parentNode.dataset.guid;
 
-					xhr.open('get','http://localhost/note/weibo.php?id='+guid,true);
+					xhr.open('get','weibo.php?id='+guid,true);
 					xhr.send();
 					xhr.onreadystatechange = ()=>{
 						if(xhr.readyState === 4 && xhr.status === 200){

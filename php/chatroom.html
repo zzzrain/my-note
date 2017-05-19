@@ -75,7 +75,7 @@
 				location.reload();
 			}*/
 			ajax({
-				url:'http://localhost/note/chatsession.php',
+				url:'chatsession.php',
 				data:{state:state,user:_user,gender:_xing},
 				callback:function(res){
 					console.log(res)
@@ -103,7 +103,7 @@
 		// 处理即时数据，更新页面内容（请求两次）
 		function updata(){
 			ajax({
-				url:'http://localhost/note/chatroom.php',
+				url:'chatroom.php',
 				data:{user:_user,gender:_xing,text:text.value},
 				callback:function(res){
 					console.log(res)

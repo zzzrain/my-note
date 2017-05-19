@@ -14,6 +14,8 @@
 		// 全局指令 必须放在开头
 		Vue.directive('lbj', {
 			bind: function() {
+				console.log(this.vm)
+				console.log(this.el)
 				// vm == scope
 				// el == ele
 				// expression == attr

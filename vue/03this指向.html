@@ -5,7 +5,9 @@
 		<title></title>
 	</head>
 	<body id="demo">
-		{{name}}
+		<span>{{east()}}</span>
+		<button @click='greet'>摘香蕉</button>
+		<span>{{west}}</span>
 		<button @click='greet'>大屁股</button>
 	</body>
 	<script src="js/vue.js"></script>
@@ -17,12 +19,16 @@
 				last:'Harden',
 			},
 			methods:{
-				greet:function(event){
-					alert(event.target.tagName)
+				greet:function(e){
+					alert(e.target.tagName)
+				},
+				east:function(){
+					console.log(this)
+					return 'Banana·James'
 				},
 			},
 			computed:{
-				name:function(){
+				west:function(){
 					console.log(this)
 					return this.first +'·'+ this.last
 				},

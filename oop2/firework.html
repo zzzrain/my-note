@@ -34,6 +34,7 @@
 		*/
 
 		document.addEventListener('DOMContentLoaded',()=>{
+			new Show();
 			function Show(){
 				var show = document.querySelector('main');
 				var auto = document.querySelector('span');
@@ -58,8 +59,7 @@
 					}				
 				}
 			}
-			new Show();
-
+			
 			// 构造烟花函数
 			function Firework(x,y){
 				this.x= x;

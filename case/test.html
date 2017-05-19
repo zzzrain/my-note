@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			var count = 0;
+			var oldParseInt = parseInt; // 保存原函数
+			
+			parseInt = function () {
+			    count += 1;
+			    return oldParseInt.apply(null, arguments); // 调用原函数
+			};
+			
+			// 测试:
+			parseInt('10');
+			parseInt('20');
+			parseInt('30');
+			console.log(count) //3
+			
+			// 转换方法
+			var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+			console.log(arr.join('').split(''))
+			
+			// map&reduce
+			function string2int(s) {
+				s=s.split('').map(Math.abs)
+				return s.reduce(function(x,y){
+					return x*10+y
+				})
+			}
+			console.log(string2int('123'))
+			
+			// sort排序技巧
+			var arr = [10, 20, 1, 2];
+			arr.sort(function (x, y) {
+			    if (x < y) {
+			        return 1;
+			    }
+			    if (x > y) {
+			        return -1;
+			    }
+			    return 0;
+			})
+		</script>
+	</body>
+</html>

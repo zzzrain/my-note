@@ -3,15 +3,16 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
+		<style>
+			.slider-enter,.slider-leave{
+				
+			}
+			.slider-transition{
+				color:red;
+			}
+		</style>
 	</head>
-	<style>
-		.slider-enter,.slider-leave{
-			
-		}
-		.slider-transition{
-			color:red;
-		}
-	</style>
+	
 	<body id="demo">
 		<button @click='click()'>过渡</button>
    		<p v-if="bool" transition="slider">hello</p>

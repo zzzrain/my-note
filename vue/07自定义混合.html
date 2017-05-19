@@ -21,6 +21,11 @@
 	<script>
 		(function() {
 			// 定义混合
+			var yao = {
+				data:{
+					name:'yao'
+				}
+			}
 			var mix = {
 				methods:{
 					click:function(){
@@ -28,16 +33,11 @@
 					}
 				}
 			}
-			var yao = {
-				data:{
-					name:'yao'
-				}
-			}
 			
 			new Vue({
 				el: "#demo1",
 				// 引入混合,不会覆盖原来的数据
-				mixins:[mix,yao],
+				mixins:[yao,mix],
 				
 				data: {
 					name: 'xie',

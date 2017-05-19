@@ -251,7 +251,7 @@ function ajax(opt){
 	}
 	
 	// jsonp处理
-	if(opt.type === 'jsonp'){
+	if(opt.type === 'jsonp'){/*
 
 		var script = document.createElement('script');
 
@@ -277,7 +277,7 @@ function ajax(opt){
 		document.head.appendChild(script);//getData({xxxx})
 
 		return;
-	}
+	*/}
 		
 	// ajax请求
 	var xhr;

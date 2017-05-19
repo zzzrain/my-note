@@ -7,7 +7,8 @@
 	<body>
 		<div ng-controller='index'>
 			<p ng-bind='title' ng-style='{color:color,textAlign:"center"}'></p>
-			<!--组件标记-->
+			<!--组件复用-->
+			<h3 orange>自定义组件</h3>
 			<zujian data='1'></zujian>
 			<zujian data='2'></zujian>
 		</div>		
@@ -31,9 +32,9 @@
 				//template:'<h3>自定义组件</h3>',
 				templateUrl: 'html/test.html',
 				link:function(scope,ele,attr){
-					scope.name = '第一个组件',
-					scope.text = '输入框内容',
-					console.log(ele,attr)
+					//console.log(scope,ele,attr)
+					scope.name = '第一个组件'
+					scope.text = '输入框内容'
 				}
 			}
 		})

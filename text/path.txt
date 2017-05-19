@@ -1,0 +1,1 @@
+﻿C:\ProgramData\Oracle\Java\javapath;%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\;d:\Git\cmd;C:\Program Files\VisualSVN Server\bin;C:\Program Files\TortoiseSVN\bin;C:\wamp64\bin\php\php7.0.10;C:\Program Files\nodejs;%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin\

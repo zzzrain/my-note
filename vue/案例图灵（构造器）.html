@@ -7,7 +7,7 @@
 	<body id="demo">
 		<input type="text" v-model='ask'/>
 		<button @click='ajax'>提问</button>
-		<p>{{ans}}</p>
+		<p v-text="ans"></p>
 	</body>
 	<script src="js/vue.js"></script>
 	<script src="js/jquery.js"></script>
