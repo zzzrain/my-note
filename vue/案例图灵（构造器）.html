@@ -6,11 +6,11 @@
 	</head>
 	<body id="demo">
 		<input type="text" v-model='ask'/>
-		<button @click='ajax'>提问</button>
+		<button @click='turing()'>提问</button>
 		<p v-text="ans"></p>
 	</body>
 	<script src="js/vue.js"></script>
-	<script src="js/jquery.js"></script>
+	<script src="js/vue-resource.js"></script>
 	<script>
 		new Vue({
 			el:'#demo',
@@ -19,7 +19,7 @@
 				ans:'',
 			},
 			methods:{
-				/*ajax:function(){
+				/*turing:function(){
 					var xhr = new XMLHttpRequest()
 					xhr.open('GET','http://www.tuling123.com/openapi/api?key=c75ba576f50ddaa5fd2a87615d144ecf&info='+this.ask,true)
 					xhr.send()
@@ -29,15 +29,26 @@
 						}
 					}.bind(this)
 				}*/
-				ajax:function(){
-					$.get('http://www.tuling123.com/openapi/api?key=c75ba576f50ddaa5fd2a87615d144ecf&info='+this.ask,function(res){
-						this.ans = res.text
-					}.bind(this))
-				},
-			},
-			// 自执行一次
-			ready:function(){
-				$('input').focus()
+				turing:function(){
+					/*this.$http.get('http://www.tuling123.com/openapi/api?key=c75ba576f50ddaa5fd2a87615d144ecf&info='+this.ask,
+						function(res){
+							console.log(res)
+							this.ans = res.text
+						}.bind(this))*/
+						
+					this.$http.get("http://www.tuling123.com/openapi/api", {
+						params: {
+							key:'c75ba576f50ddaa5fd2a87615d144ecf',
+							info:this.ask
+						}
+					}).then(function(data) {
+						console.log(data)
+						this.ans = data.body.text
+					}, function(err) {
+			
+					})
+				}
+				
 			}
 		})
 	</script>
