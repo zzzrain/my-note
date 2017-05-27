@@ -6,7 +6,7 @@
 	</head>
 	<body id="demo">
 		<p v-lbj='gold'>{{name}}</p>
-		<p v-part>{{food}}</p>
+		<p v-part='indigo'>I love Banana</p>
 	</body>
 	<script src="js/vue.js"></script>
 	<script src="js/jquery.js"></script>
@@ -19,7 +19,7 @@
 				// vm == scope
 				// el == ele
 				// expression == attr
-				this.vm.name = 'LeBron James'
+				this.vm.name = 'LeBron Banana James'
 				this.el.style.color = this.expression
 			}
 		})
@@ -31,7 +31,7 @@
 				part:{
 					bind:function(){
 						this.vm.food = 'banana'
-						$(this.el).css({'color':'red','fontSize':'24px'})
+						$(this.el).css({'color':this.expression,'fontSize':'24px'})
 					}
 				}
 			}

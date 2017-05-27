@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script src="js/react.js"></script>	
+	<script src="js/react-dom.js"></script>	
+	<script src="js/babel.js"></script>	
+	<script src="js/jquery.js"></script>	
+	<body>
+		<div id="demo"></div>
+	</body>
+	<script type="text/babel" src="./Turing.jsx"></script>
+	<script type="text/babel">
+		/*var Turing = React.createClass({
+			render:function(){
+				return <h1>success</h1>
+			}
+		})
+		ReactDOM.render(
+			<Turing/>,
+			document.querySelector('#demo')
+		)*/
+		ReactDOM.render(
+			<div>
+				<Test/>
+				<Turing/>
+			</div>
+			,document.querySelector('#demo')
+		)
+	</script>
+</html>
