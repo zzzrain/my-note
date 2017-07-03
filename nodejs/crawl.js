@@ -1,8 +1,8 @@
 var http = require('http');
-var mysql = require('mysql');
 var fs = require('fs');
 var cheerio = require('cheerio');
 
+//var mysql = require('mysql');
 /*var connect = mysql.createConnection({
 	host:'localhost',
 	user:'root',
@@ -26,7 +26,7 @@ function crawl(url,callback){
 //http://mp.weixin.qq.com/s/JJ_bNJJWcQ9ltfWmFktbSw
 //http://www.mmjpg.com/tag/liufeier
 
-crawl("http://mp.weixin.qq.com/s/JJ_bNJJWcQ9ltfWmFktbSw", function(data) {
+crawl("http://www.mmjpg.com/tag/barbie", function(data) {
 	// 储存数据
 	var imgArr = [];
 	
@@ -48,9 +48,9 @@ var i = 1;
 function download(imgArr) {
 	//console.log(imgArr)
 	if(i<10){
-		var writerStream = fs.createWriteStream('./0425/' +'0'+ i + '.jpg');
+		var writerStream = fs.createWriteStream('./img/barbie/' +'0'+ i + '.jpg');
 	}else{
-		var writerStream = fs.createWriteStream('./0425/' + i + '.jpg');
+		var writerStream = fs.createWriteStream('./img/barbie/' + i + '.jpg');
 	}
 	
 	http.get(imgArr[i], function(res) {
@@ -58,8 +58,6 @@ function download(imgArr) {
 		if(i < imgArr.length) {
 			i++;
 			download(imgArr)
-		} else {
-			return;
-		}
+		} else return
 	})
 }

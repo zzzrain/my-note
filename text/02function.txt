@@ -12,7 +12,6 @@ b、作为变量：var name = function(){}
 a、函数名字直接调用：name()
 b、事件调用：onclick = name
 c、作为object的方法：obj.name()
-d、构造函数：new function().name
 
 4、闭包
 a、函数嵌套函数

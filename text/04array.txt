@@ -9,6 +9,7 @@ push：   末尾添加任意元素
 pop：    末尾删除一个元素
 shift：  头部删除一个元素（返回元素）
 unshift：头部添加任意元素
+concat： 数组合并
 
 slice(start,end)：    提取区间
 splice(start,sum,item)：增删改

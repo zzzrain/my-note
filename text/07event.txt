@@ -1,8 +1,13 @@
-﻿1、鼠标事件、键盘事件、UI事件
-mouseenter：	鼠标移入不冒泡
-mouseleave：	鼠标移除不冒泡
-onkeypress：	键盘按住不放
-oncontextmenu： 右键菜单激活
+﻿鼠标事件、键盘事件、UI事件
+onmousedown：  鼠标按钮被按下
+onmouseup：    鼠标按键被松开
+onmouseover：  鼠标移到某元素之
+onmouseout：   鼠标从某元素移开
+onmousemove：  鼠标被移动时触发
+mouseenter：   鼠标移入不冒泡
+mouseleave：   鼠标移除不冒泡
+onkeypress：   键盘按住不放
+oncontextmenu：右键菜单激活
 
 onfocus：  获得焦点
 onblur：   失去焦点

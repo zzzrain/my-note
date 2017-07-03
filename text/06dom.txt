@@ -14,7 +14,7 @@ Id、ClassName、TagName、Name
 儿子节点：childNodes(所有)、firstChild、lastChild
 兄弟节点：nextSibling、previousSibling
 
-过滤方法：中间加上Element，firstElementChild
+过滤方法：中间加上Element，如：firstElementChild
 不用过滤：parentElement/parentNode、children[i]
 
 属性节点：ele.attributes

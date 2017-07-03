@@ -1,15 +1,15 @@
 var x = 1;
 
-/*setTimeout(function(){
+setTimeout(function(){
 	x = 2;
 	console.log(x)
 },1000)
 
-console.log(x)*/
+console.log(x)
 
 function time(back){
 	setTimeout(function(){
-		x = 2;
+		x = 3;
 		back();
 	},1000)
 }
