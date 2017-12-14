@@ -6,22 +6,17 @@ onresize：窗口大小发生改变
 window.innerWidth、window.innerHeight
 
 2、滚动条滚动距离：
-
 scrollX/scrollY：获取滚动距离
 scrollTo(x,y)：  设置滚动距离
 scrollBy(x,y)：  设置当前滚动距离
-ele.scrollTop/Left： 获取滚动距离
-ele.scrolltoView()： 滚到可视区域
-scrollWidth、scrollHeight：滚动高度
+scrolltoView()： 滚到可视区域
+scrollTop/Left： 获取滚动距离
+scrollWidth/Height： 滚动高度
 
 3、盒模型属性：
-offsetTop：   跟父元素顶部的距离（html）
-offsetLeft：  跟父元素左边的距离（html）
-offsetWidth： 元素的宽度（不包括border）
-offsetHeight：元素的高度（不包括border）
-
-clientWidth： 当前元素宽度（不包括border）
-clientHeight：当前元素高度（不包括border）
+offsetWidth/Height：元素的宽/高
+offsetTop/Left：跟父元素顶部/左边的距离
+clientWidth/Height：当前元素宽/高（不包括border）
 clientTop/Left：border宽度
 
 4、鼠标的位置：
