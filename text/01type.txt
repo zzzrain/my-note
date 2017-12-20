@@ -1,9 +1,0 @@
-﻿数据类型：
-基本：number、string、boolean
-引用：object （Array、Function、Date）
-特殊：null、undefined 
-null ==  undefined ==>true
-null === undefined ==>false
-
-判断类型typeof
-判断数字isNaN，NaN不能判断

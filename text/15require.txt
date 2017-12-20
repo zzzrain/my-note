@@ -1,8 +1,0 @@
-﻿1、引入requirejs
-2、配置config.js，data-main引入script
-3、requirejs.config({baseUrl:,paths:,shim:})
-baseUrl：设置根目录
-paths：  设置别名和模块路径
-shim：   配置插件（dpes、exports）
-4、定义模块define(闭包形式)
-5、加载模块requirejs

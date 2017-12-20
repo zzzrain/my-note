@@ -1,6 +1,0 @@
-﻿打开路径 C:\Windows\ShellNew，
-新建名为UNICODE的txt文件
-打开注册表编辑器定位至：
-HKEY_CLASSES_ROOT\.txt\ShellNew
-新建名为 FileName 的字符串值并将其设置为： 
-C:\Windows\ShellNew\UNICODE.TXT
