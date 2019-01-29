@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="demo">
+			<p>{{ name }}</p>
+			<xhead style="border: 1px solid plum"></xhead>
+			<xfoot style="border: 1px solid salmon"></xfoot>
+		</div>
+	</body>
+	<template id="st">
+		<header>
+			<p>第一个组件</p>
+			<input type="text" v-model="title" @keyup=xxx value="默认数据">
+		</header>
+	</template>
+	<template id="nd">
+		<footer>
+			<p>第二个组件</p>
+			<input type="text" v-model=title>
+		</footer>
+	</template>
+	<script src="js/vue.js"></script>
+	<script src="js/vuex.js"></script>
+	<script>
+		let store = new Vuex.Store({
+			state: {
+				exChange: ''
+			},
+			mutations: {
+				setExChange (state, data) {
+					state.exChange = data;
+				}
+			},
+			getters: {
+				getExChange (state) {
+					return state.exChange;
+				}
+			}
+		});
+		let st = Vue.extend({
+			template: '#st',
+			methods: {
+				xxx () {
+					this.$store.commit("setExChange", this.title);
+				}
+			},
+			data () {
+				return {
+					title: '',
+				}
+			},
+			ready () {
+				this.xxx();
+			}
+		});
+		let nd = Vue.extend({
+			template: '#nd',
+			computed: {
+				title () {
+					return this.$store.getters.getExChange
+				}
+			}
+		});
+
+		Vue.component('xhead', st);
+		Vue.component('xfoot', nd);
+
+		new Vue({
+			el: '#demo',
+			data: {
+				name: '数据传递示例'
+			},
+			store
+		});
+	</script>
+</html>
